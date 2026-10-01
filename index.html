@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Chakib &amp; Sarah | Mariage 2027</title>
+  <meta name="description" content="Chakib et Sarah ont le plaisir de vous inviter à célébrer leur mariage le 12 juin 2027 à Montréal.">
+  <meta property="og:title" content="Chakib &amp; Sarah | Mariage 2027">
+  <meta property="og:description" content="Rejoignez-nous le samedi 12 juin 2027 à Montréal pour célébrer notre mariage.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/hero.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --soft: #f6f5f2;
+      --ink: #1a1a1a;
+      --muted: #77756f;
+      --line: #e6e4df;
+      --accent: #a58b5d;
+
+      --serif: "Instrument Serif", "Times New Roman", serif;
+      --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+
+      --wrap: 1080px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 70px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 1.02rem;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      z-index: 100;
+      top: -60px;
+      left: 16px;
+      padding: 10px 18px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 12px; }
+
+    /* ---------- Structure ---------- */
+    section { padding: clamp(90px, 12vw, 160px) 6%; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; }
+    .soft { background: var(--soft); }
+
+    .section-head { margin-bottom: clamp(44px, 7vw, 80px); text-align: center; }
+    .section-head .kicker {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 400;
+    }
+    .section-head h2 { font-size: clamp(2.8rem, 7vw, 5rem); }
+
+    /* ---------- Navigation ---------- */
+    .site-nav {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 5%;
+      transition: background .35s ease, padding .35s ease, border-color .35s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .site-nav.scrolled {
+      padding: 14px 5%;
+      background: rgba(255, 255, 255, .92);
+      border-bottom-color: var(--line);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .site-nav ul {
+      display: flex;
+      justify-content: center;
+      gap: clamp(18px, 3vw, 42px);
+      overflow-x: auto;
+      list-style: none;
+      scrollbar-width: none;
+    }
+    .site-nav ul::-webkit-scrollbar { display: none; }
+    .site-nav a {
+      position: relative;
+      padding: 4px 0;
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 400;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color .3s ease;
+    }
+    .site-nav.scrolled a { color: var(--muted); }
+    .site-nav.scrolled a:hover,
+    .site-nav.scrolled a.active { color: var(--ink); }
+    .site-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s ease;
+    }
+    .site-nav a:hover::after,
+    .site-nav a.active::after { transform: scaleX(1); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 100svh;
+      overflow: hidden;
+      place-items: center;
+      background: #3a3a3a;
+      color: #fff;
+      text-align: center;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      background-position: center;
+      background-size: cover;
+      opacity: 0;
+      animation: heroFade 16s infinite;
+    }
+    .slide-one { background-image: url("images/hero.jpg"); animation-delay: 0s; }
+    .slide-two { background-image: url("images/hero2.jpg"); animation-delay: 8s; }
+
+    @keyframes heroFade {
+      0%, 100% { opacity: 0; }
+      10%, 40% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero::after {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      content: "";
+      background: rgba(0, 0, 0, .38);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(900px, 90%);
+      padding: 120px 0 90px;
+    }
+    .hero-content > * {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 1s cubic-bezier(.2, .7, .2, 1) forwards;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: .15s; }
+    .hero-content > *:nth-child(2) { animation-delay: .35s; }
+    .hero-content > *:nth-child(3) { animation-delay: .55s; }
+    .hero-content > *:nth-child(4) { animation-delay: .7s; }
+    .hero-content > *:nth-child(5) { animation-delay: .85s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    .hero-kicker {
+      margin-bottom: 22px;
+      font-size: .95rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      opacity: .9;
+    }
+    .hero h1 {
+      font-size: clamp(3.8rem, 12vw, 9rem);
+      line-height: .95;
+    
+    }
+    .hero h1 .ampersand {
+      display: block;
+      margin: .04em 0;
+      font-size: .4em;
+      font-style: italic;
+    }
+    @media (min-width: 820px) {
+      .hero h1 .ampersand { display: inline; margin: 0 .16em; vertical-align: .1em; }
+    }
+    .hero-copy {
+      max-width: 520px;
+      margin: 26px auto 0;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      opacity: .92;
+    }
+    .hero-date {
+      margin-top: 30px;
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      z-index: 2;
+      bottom: 26px;
+      left: 50%;
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(#fff, transparent);
+      opacity: .7;
+      animation: hint 2.4s ease-in-out infinite;
+    }
+    @keyframes hint {
+      0%, 100% { transform: translate(-50%, 0); opacity: .3; }
+      50% { transform: translate(-50%, 8px); opacity: .9; }
+    }
+
+    /* ---------- Boutons ---------- */
+    .button {
+      display: inline-block;
+      margin-top: 34px;
+      padding: 15px 34px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: .92rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .25s ease, color .25s ease, border-color .25s ease;
+    }
+    .button:hover { background: transparent; color: var(--ink); }
+    .button-light { border-color: #fff; background: #fff; color: var(--ink); }
+    .button-light:hover { background: transparent; color: #fff; }
+    .button-outline { background: transparent; color: var(--ink); }
+    .button-outline:hover { background: var(--ink); color: #fff; }
+
+    /* ---------- Compte à rebours ---------- */
+    .countdown { text-align: center; }
+    .timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 820px;
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .time-box { padding: clamp(28px, 5vw, 52px) 8px; }
+    .time-box + .time-box { border-left: 1px solid var(--line); }
+    .time-box span {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 9vw, 6rem);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .time-box small {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 400;
+    }
+    .countdown-message {
+      min-height: 1.5em;
+      margin-top: 28px;
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-style: italic;
+    }
+
+    /* ---------- Notre histoire ---------- */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(36px, 7vw, 100px);
+      align-items: center;
+    }
+    .story-photo img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: 35% center;
+      background: var(--line);
+    }
+    .story .section-head { margin-bottom: 32px; text-align: left; }
+    .story-copy { color: var(--muted); }
+    .story-copy p + p { margin-top: 1.25em; }
+    .story-copy .lead {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+      font-style: italic;
+      line-height: 1.2;
+    }
+    .story-copy .date-mark { color: var(--ink); font-weight: 500; }
+
+    /* ---------- Programme ---------- */
+    .program {
+      max-width: 760px;
+      margin: 0 auto;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+    .program li {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .program .time { font-family: var(--serif); font-size: clamp(1.8rem, 3.6vw, 2.4rem); }
+    .program .what { font-size: 1.1rem; }
+    .cta-row { margin-top: 12px; text-align: center; }
+
+    /* ---------- Lieu ---------- */
+    .location { text-align: center; }
+    .venue h3 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+    .address { margin-top: 18px; color: var(--muted); font-style: normal; }
+
+    /* ---------- Voyages ---------- */
+    .trips {
+      max-width: 860px;
+      margin: 0 auto;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+    .trips li {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .trips h3 { font-size: clamp(2rem, 4vw, 2.8rem); }
+    .trips .flag { margin-right: 8px; font-size: .6em; vertical-align: .15em; }
+    .trips p { color: var(--muted); }
+
+    /* ---------- Galerie ---------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .gallery button {
+      overflow: hidden;
+      border: 0;
+      background: var(--line);
+      aspect-ratio: 4 / 5;
+      cursor: zoom-in;
+    }
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .gallery button:hover img { transform: scale(1.04); }
+
+    .lightbox {
+      position: fixed;
+      z-index: 200;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(255, 255, 255, .97);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: min(1100px, 100%); max-height: 88vh; object-fit: contain; }
+    .lightbox button {
+      position: absolute;
+      width: 48px; height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--ink);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .lightbox button:hover { background: var(--soft); }
+    .lightbox .close { top: 20px; right: 20px; }
+    .lightbox .prev { left: 20px; top: 50%; transform: translateY(-50%); }
+    .lightbox .next { right: 20px; top: 50%; transform: translateY(-50%); }
+
+    /* ---------- Citation ---------- */
+    .quote { text-align: center; }
+    .quote blockquote {
+      max-width: 880px;
+      margin: 0 auto;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.8vw, 3.4rem);
+      font-style: italic;
+      line-height: 1.2;
+    }
+    .quote cite {
+      display: block;
+      margin-top: 26px;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: .95rem;
+      font-style: normal;
+    }
+
+    /* ---------- RSVP ---------- */
+    .rsvp { text-align: center; }
+    .rsvp-note {
+      max-width: 520px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    /* ---------- FAQ ---------- */
+    .faq-list { max-width: 780px; margin: 0 auto; border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 26px 0;
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      line-height: 1.2;
+      list-style: none;
+      cursor: pointer;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      flex: none;
+      width: 14px; height: 14px;
+      background:
+        linear-gradient(var(--ink), var(--ink)) center / 100% 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) center / 1px 100% no-repeat;
+      transition: transform .3s ease;
+      content: "";
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item .answer { padding: 0 0 28px; color: var(--muted); max-width: 62ch; }
+    .faq-item .answer p + p { margin-top: 12px; }
+    .faq-item .answer strong { color: var(--ink); font-weight: 500; }
+    .faq-item .answer .note { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--ink); }
+
+    /* ---------- Pied de page ---------- */
+    footer {
+      padding: 90px 20px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+    footer h2 { font-size: clamp(2.6rem, 6vw, 4rem); }
+    footer p { margin-top: 12px; color: var(--muted); }
+
+    /* ---------- Révélation au défilement ---------- */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .story-photo { max-width: 440px; margin: 0 auto; }
+      .story .section-head { text-align: center; }
+    }
+
+    @media (max-width: 700px) {
+      section { padding: 80px 6%; }
+      .site-nav ul { justify-content: flex-start; }
+
+      .timer { grid-template-columns: repeat(2, 1fr); }
+      .time-box:nth-child(3) { border-left: 0; }
+      .time-box:nth-child(n + 3) { border-top: 1px solid var(--line); }
+
+      .program li { grid-template-columns: 1fr; gap: 2px; padding: 22px 0; }
+      .trips li { grid-template-columns: 1fr; gap: 4px; padding: 24px 0; }
+
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .lightbox .prev { left: 8px; }
+      .lightbox .next { right: 8px; }
+
+      .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .hero-content {
+    width: 90%;
+    padding: 110px 0 80px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 13vw, 5rem);
+  }
+
+  .site-nav a {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+  }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .slide-one { opacity: 1; }
+      .hero-content > *, .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#histoire">Aller au contenu</a>
+
+  <nav class="site-nav" id="nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="#histoire">Notre histoire</a></li>
+      <li><a href="#jour">Le grand jour</a></li>
+      <li><a href="#lieu">Lieu</a></li>
+      <li><a href="#voyages">Voyages</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="slide slide-one" aria-hidden="true"></div>
+    <div class="slide slide-two" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-kicker">
+  سورة الروم، الآية ٢١<br>
+  وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا<br>
+  وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+</p>
+      <h1>Chakib <span class="ampersand">&amp;</span> Sarah</h1>
+      <p class="hero-copy">Parce que ce grand jour n'aurait aucun sens sans vous, c'est avec une immense joie que nous vous convions à notre mariage.</p>
+      <p class="hero-date">Samedi 12 juin 2027, Montréal</p>
+      <div>
+        <a class="button button-light" href="#histoire">Découvrir notre histoire</a>
+      </div>
+    </div>
+    <span class="scroll-hint" aria-hidden="true"></span>
+  </header>
+
+  <main>
+    <section class="countdown" aria-labelledby="countdown-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Le grand jour approche</p>
+          <h2 id="countdown-title">Compte à rebours</h2>
+        </div>
+        <div class="timer" role="timer" aria-label="Compte à rebours avant le mariage">
+          <div class="time-box"><span id="days">0</span><small>Jours</small></div>
+          <div class="time-box"><span id="hours">0</span><small>Heures</small></div>
+          <div class="time-box"><span id="minutes">0</span><small>Minutes</small></div>
+          <div class="time-box"><span id="seconds">0</span><small>Secondes</small></div>
+        </div>
+        <p id="countdown-message" class="countdown-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="histoire" class="story soft">
+      <div class="wrap story-grid">
+        <div class="story-photo reveal">
+          <img src="images/photo2.jpg" alt="Chakib et Sarah" loading="lazy">
+        </div>
+        <div class="story-copy reveal">
+          <div class="section-head">
+            <p class="kicker">Deux chemins, une histoire</p>
+            <h2>Notre histoire</h2>
+          </div>
+          <p class="lead">Certains disent que tout arrive pour une raison.</p>
+          <p>
+            Le <span class="date-mark">13 octobre 2025</span>, nos chemins se sont croisés au Mont-Royal.
+            Ce qui semblait être une simple rencontre s'est rapidement transformé
+            en quelque chose de beaucoup plus précieux.
+          </p>
+          <p>
+            Au fil du temps, nous avons découvert une complicité naturelle,
+            une passion commune pour les voyages et une vision de la vie que nous
+            avions envie de partager.
+          </p>
+          <p>
+            Nous avons trouvé bien plus qu'un partenaire : nous avons trouvé notre âme sœur.
+          </p>
+          <p>
+            Aujourd'hui, entourés de nos proches, nous avons hâte de commencer
+            officiellement la plus belle aventure de notre vie.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="jour" class="schedule">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker">Samedi 12 juin 2027</p>
+          <h2>Le grand jour</h2>
+        </div>
+        <ol class="program reveal">
+          <li><span class="time">17 h 30</span><span class="what">Cocktail de bienvenue</span></li>
+          <li><span class="time">18 h 30</span><span class="what">Souper et célébration</span></li>
+          <li><span class="time">20 h 00</span><span class="what">Animation et festivités</span></li>
+          <li><span class="time">02 h 00</span><span class="what">Fin de soirée</span></li>
+        </ol>
+        <div class="cta-row reveal">
+          <button type="button" class="button button-outline" id="add-calendar">Ajouter à mon calendrier</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="lieu" class="location soft">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker">Nous avons hâte de vous y retrouver</p>
+          <h2>Le lieu</h2>
+        </div>
+        <div class="venue reveal">
+          <h3>Salle de Réception Le Classique</h3>
+          <address class="address">
+            6010 Boulevard des Grandes-Prairies<br>
+            Saint-Léonard, Québec H1P 1A5
+          </address>
+          <a
+            class="button"
+            href="https://www.google.com/maps/search/?api=1&amp;query=Salle+de+R%C3%A9ception+Le+Classique%2C+6010+Boulevard+des+Grandes-Prairies%2C+Saint-L%C3%A9onard%2C+QC"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Voir l’itinéraire</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="voyages" class="travel-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker">Des souvenirs à travers le monde</p>
+          <h2>Nos voyages</h2>
+        </div>
+        <ul class="trips reveal">
+          <li>
+            <h3><span class="flag" aria-hidden="true">🇺🇸</span>Kansas City</h3>
+            <p>Coupe du Monde — Algérie contre Autriche.</p>
+          </li>
+          <li>
+            <h3><span class="flag" aria-hidden="true">🇹🇷</span>Istanbul</h3>
+            <p>Une ville fascinante entre deux continents.</p>
+          </li>
+          <li>
+            <h3><span class="flag" aria-hidden="true">🎈</span>Cappadoce</h3>
+            <p>Une expérience magique parmi les montgolfières.</p>
+          </li>
+          <li>
+            <h3><span class="flag" aria-hidden="true">🇮🇹</span>Les Pouilles</h3>
+            <p>Polignano a Mare, Crispiano et Lecce.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="galerie" class="gallery-section soft">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker">Quelques instants précieux</p>
+          <h2>Galerie</h2>
+        </div>
+        <div class="gallery" id="gallery">
+          <button type="button" aria-label="Agrandir la photo 1"><img src="images/photo0.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 2"><img src="images/photo1.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 3"><img src="images/photo3.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 5"><img src="images/photo5.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 6"><img src="images/photo6.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 7"><img src="images/photo7.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 8"><img src="images/photo8.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 9"><img src="images/photo9.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+          <button type="button" aria-label="Agrandir la photo 11"><img src="images/photo11.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote">
+      <blockquote class="reveal">
+        Le plus beau voyage n'est pas celui que l'on fait autour du monde, mais celui que l'on entreprend à deux.
+        <cite>Chakib &amp; Sarah</cite>
+      </blockquote>
+    </section>
+
+    <section id="rsvp" class="rsvp soft">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker">Réponse souhaitée avant le 12 mars 2027</p>
+          <h2>RSVP</h2>
+        </div>
+        <p class="rsvp-note reveal">Votre présence rendra cette journée encore plus spéciale.</p>
+        <a
+          class="button reveal"
+          href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__jxx9QlUMVdDOTNLN0ZJNzJaTTNURVdLNFQ1SEZTSS4u"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Confirmer ma présence</a>
+      </div>
+    </section>
+
+    <section id="faq" class="faq">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="kicker">Tout ce que vous voulez savoir</p>
+          <h2>FAQ</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details class="faq-item" open>
+            <summary>Les enfants sont-ils invités ?</summary>
+            <div class="answer"><p>Enfants de 4 ans et moins</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Y a-t-il du stationnement ?</summary>
+            <div class="answer"><p>Oui, un stationnement est disponible sur place.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Quelle est la date limite pour le RSVP ?</summary>
+            <div class="answer"><p>Merci de confirmer votre présence au plus tard le 12 mars 2027.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Quel est le code vestimentaire ?</summary>
+            <div class="answer">
+              <p><strong>Pour les hommes :</strong> tenue classique et élégante, de préférence un costume.</p>
+              <p><strong>Pour les femmes :</strong> tenue de soirée ou tenue traditionnelle.</p>
+              <p class="note">Aucune couleur ni aucun thème n'est imposé. Laissez parler votre style et choisissez une tenue dans laquelle vous vous sentez élégant(e), à l'aise et prêt(e) à célébrer avec nous.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Quelle est la date limite pour le RSVP ?</summary>
+            <div class="answer"><p>Merci de confirmer votre présence au plus tard le 12 mars 2027.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <h2>Chakib &amp; Sarah</h2>
+    <p>Avec amour, 12 juin 2027</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galerie photo">
+    <button type="button" class="close" aria-label="Fermer">&times;</button>
+    <button type="button" class="prev" aria-label="Photo précédente">&#8249;</button>
+    <img id="lightbox-img" src="" alt="">
+    <button type="button" class="next" aria-label="Photo suivante">&#8250;</button>
+  </div>
+
+  <script>
+    /* Compte à rebours — le 12 juin 2027, Montréal est à l'heure avancée (UTC−4). */
+    const weddingDate = new Date("2027-06-12T17:30:00-04:00").getTime();
+    const ids = {
+      days: document.getElementById("days"),
+      hours: document.getElementById("hours"),
+      minutes: document.getElementById("minutes"),
+      seconds: document.getElementById("seconds")
+    };
+    const message = document.getElementById("countdown-message");
+
+    function updateCountdown() {
+      const d = weddingDate - Date.now();
+      if (d <= 0) {
+        Object.values(ids).forEach((el) => (el.textContent = "0"));
+        message.textContent = "C’est le grand jour !";
+        return;
+      }
+      ids.days.textContent = Math.floor(d / 86400000);
+      ids.hours.textContent = String(Math.floor((d % 86400000) / 3600000)).padStart(2, "0");
+      ids.minutes.textContent = String(Math.floor((d % 3600000) / 60000)).padStart(2, "0");
+      ids.seconds.textContent = String(Math.floor((d % 60000) / 1000)).padStart(2, "0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* Navigation : fond au défilement + lien actif */
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const navLinks = [...document.querySelectorAll(".site-nav a")];
+    const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href")));
+    if ("IntersectionObserver" in window) {
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((a) =>
+              a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id)
+            );
+          }
+        });
+      }, { rootMargin: "-45% 0px -50% 0px" });
+      sections.forEach((s) => s && spy.observe(s));
+    }
+
+    /* Apparition douce des éléments */
+    const reveals = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach((el) => io.observe(el));
+    } else {
+      reveals.forEach((el) => el.classList.add("visible"));
+    }
+
+    /* Galerie : visionneuse plein écran */
+    const gallery = document.getElementById("gallery");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const thumbs = [...gallery.querySelectorAll("img")];
+    let current = 0;
+
+    function openAt(i) {
+      current = (i + thumbs.length) % thumbs.length;
+      lightboxImg.src = thumbs[current].src;
+      lightboxImg.alt = thumbs[current].alt;
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeBox() {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    thumbs.forEach((img, i) => img.parentElement.addEventListener("click", () => openAt(i)));
+    lightbox.querySelector(".close").addEventListener("click", closeBox);
+    lightbox.querySelector(".prev").addEventListener("click", () => openAt(current - 1));
+    lightbox.querySelector(".next").addEventListener("click", () => openAt(current + 1));
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeBox(); });
+    document.addEventListener("keydown", (e) => {
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") closeBox();
+      if (e.key === "ArrowLeft") openAt(current - 1);
+      if (e.key === "ArrowRight") openAt(current + 1);
+    });
+
+    /* Ajouter au calendrier (fichier .ics) */
+    document.getElementById("add-calendar").addEventListener("click", () => {
+      const ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Mariage Chakib et Sarah//FR",
+        "BEGIN:VEVENT",
+        "UID:mariage-chakib-sarah-20270612@mariage",
+        "DTSTAMP:20260101T000000Z",
+        "DTSTART:20270612T213000Z",
+        "DTEND:20270613T060000Z",
+        "SUMMARY:Mariage de Chakib & Sarah",
+        "LOCATION:Salle de Réception Le Classique\\, 6010 Boulevard des Grandes-Prairies\\, Saint-Léonard\\, QC H1P 1A5",
+        "DESCRIPTION:Cocktail de bienvenue à 17 h 30.",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "mariage-chakib-sarah.ics";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    });
+  </script>
+</body>
+</html>
