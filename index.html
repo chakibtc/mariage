@@ -450,6 +450,59 @@
       font-size: 1.1rem;
     }
 
+    .rsvp-form {
+      max-width: 620px;
+      margin: 44px auto 0;
+      text-align: left;
+    }
+    .rsvp-form[hidden], .rsvp-form [hidden], .rsvp-form fieldset[hidden] { display: none !important; }
+    .rsvp-form fieldset { border: 0; min-width: 0; }
+    .field { margin-bottom: 30px; }
+    .field > label, .field > legend {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      line-height: 1.25;
+      padding: 0;
+    }
+    .field .req { color: var(--accent); }
+    .field .hint { display: block; margin-top: 2px; color: var(--muted); font-family: var(--sans); font-size: .85rem; }
+    .field input[type="text"],
+    .field input[type="number"],
+    .field textarea {
+      width: 100%;
+      padding: 12px 0;
+      border: 0;
+      border-bottom: 1px solid var(--ink);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 1rem;
+    }
+    .field textarea { min-height: 84px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: none; border-bottom-width: 2px; }
+    .choices { display: grid; gap: 10px; }
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .choice:hover { border-color: var(--ink); }
+    .choice input { accent-color: var(--ink); width: 18px; height: 18px; flex: none; }
+    .choice:has(input:checked) { border-color: var(--ink); background: #fff; }
+    .rsvp-form .submit-row { text-align: center; }
+    .rsvp-form button.button[disabled] { opacity: .5; cursor: wait; }
+    .rsvp-status { margin-top: 22px; text-align: center; font-family: var(--serif); font-size: 1.5rem; font-style: italic; }
+    .rsvp-status.error { color: #a33; font-size: 1.1rem; font-family: var(--sans); font-style: normal; }
+    .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+
     /* ---------- FAQ ---------- */
     .faq-list { max-width: 780px; margin: 0 auto; border-top: 1px solid var(--line); }
     .faq-item { border-bottom: 1px solid var(--line); }
@@ -727,12 +780,93 @@
           <h2>RSVP</h2>
         </div>
         <p class="rsvp-note reveal">Votre présence rendra cette journée encore plus spéciale.</p>
-        <a
-          class="button reveal"
-          href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__jxx9QlUMVdDOTNLN0ZJNzJaTTNURVdLNFQ1SEZTSS4u"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Confirmer ma présence</a>
+
+        <!-- ===== Questionnaire COUPLE (lien ?invite=couple) ===== -->
+        <form class="rsvp-form" id="form-couple" data-type="Couple" hidden novalidate>
+          <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+          <div class="field">
+            <label for="c-nom">Nom et prénom <span class="req">*</span></label>
+            <input type="text" id="c-nom" name="Nom et prénom" autocomplete="name" required>
+          </div>
+            <div class="field">
+              <label id="c-attend-l">Seriez-vous parmi nous ? <span class="req">*</span></label>
+              <div class="choices" role="radiogroup" aria-labelledby="c-attend-l">
+                <label class="choice"><input type="radio" name="Présence" value="Oui, avec grand plaisir" required> Oui, avec grand plaisir</label>
+                <label class="choice"><input type="radio" name="Présence" value="Non, malheureusement"> Non, malheureusement</label>
+              </div>
+            </div>
+          <fieldset class="details">
+            <div class="field">
+              <label for="c-acc">Quel est le nom de votre accompagnateur(trice) ? <span class="hint">Si applicable</span></label>
+              <input type="text" id="c-acc" name="Accompagnateur" autocomplete="off">
+            </div>
+            <div class="field">
+              <label id="c-kids-l">Ramenez-vous un ou des enfants de moins de 4 ans ?</label>
+              <div class="choices" role="radiogroup" aria-labelledby="c-kids-l">
+                <label class="choice"><input type="radio" name="Enfants de moins de 4 ans" value="Oui"> Oui</label>
+                <label class="choice"><input type="radio" name="Enfants de moins de 4 ans" value="Non"> Non</label>
+              </div>
+            </div>
+            <div class="field" id="c-kids-count" hidden>
+              <label for="c-kids-n">Combien d’enfants de moins de 4 ans ?</label>
+              <input type="number" id="c-kids-n" name="Nombre d'enfants" min="1" max="10" inputmode="numeric">
+            </div>
+              <div class="field">
+                <label id="c-Plat principal (invité)-l">Choix du plat principal — pour vous <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="c-Plat principal (invité)-l">
+                  <label class="choice"><input type="radio" name="Plat principal (invité)" value="Bœuf braisé" required> Bœuf braisé</label>
+                  <label class="choice"><input type="radio" name="Plat principal (invité)" value="Filet de saumon à l’aneth"> Filet de saumon à l’aneth</label>
+                  <label class="choice"><input type="radio" name="Plat principal (invité)" value="Option végétarienne"> Option végétarienne</label>
+                </div>
+              </div>
+              <div class="field">
+                <label id="c-Plat principal (accompagnateur)-l">Choix du plat principal — pour votre accompagnateur(trice), si applicable <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="c-Plat principal (accompagnateur)-l">
+                  <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Bœuf braisé"> Bœuf braisé</label>
+                  <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Filet de saumon à l’aneth"> Filet de saumon à l’aneth</label>
+                  <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Option végétarienne"> Option végétarienne</label>
+                </div>
+              </div>
+            <div class="field">
+              <label for="c-all">Êtes-vous allergique à certains aliments ? Est-ce le cas de l’un ou l’une de vos invité(e)s ? Si oui, à quoi ?</label>
+              <textarea id="c-all" name="Allergies"></textarea>
+            </div>
+          </fieldset>
+          <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
+        </form>
+
+        <!-- ===== Questionnaire SOLO (par défaut, ou ?invite=solo) ===== -->
+        <form class="rsvp-form" id="form-solo" data-type="Solo" hidden novalidate>
+          <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+          <div class="field">
+            <label for="s-nom">Nom et prénom <span class="req">*</span></label>
+            <input type="text" id="s-nom" name="Nom et prénom" autocomplete="name" required>
+          </div>
+            <div class="field">
+              <label id="s-attend-l">Seriez-vous parmi nous ? <span class="req">*</span></label>
+              <div class="choices" role="radiogroup" aria-labelledby="s-attend-l">
+                <label class="choice"><input type="radio" name="Présence" value="Oui, avec grand plaisir" required> Oui, avec grand plaisir</label>
+                <label class="choice"><input type="radio" name="Présence" value="Non, malheureusement"> Non, malheureusement</label>
+              </div>
+            </div>
+          <fieldset class="details">
+              <div class="field">
+                <label id="s-Plat principal-l">Choix du plat principal — pour vous <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="s-Plat principal-l">
+                  <label class="choice"><input type="radio" name="Plat principal" value="Bœuf braisé" required> Bœuf braisé</label>
+                  <label class="choice"><input type="radio" name="Plat principal" value="Filet de saumon à l’aneth"> Filet de saumon à l’aneth</label>
+                  <label class="choice"><input type="radio" name="Plat principal" value="Option végétarienne"> Option végétarienne</label>
+                </div>
+              </div>
+            <div class="field">
+              <label for="s-all">Êtes-vous allergique à certains aliments ? Si oui, à quoi ?</label>
+              <textarea id="s-all" name="Allergies"></textarea>
+            </div>
+          </fieldset>
+          <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
+        </form>
+
+        <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
       </div>
     </section>
 
@@ -899,6 +1033,76 @@
       a.remove();
       URL.revokeObjectURL(a.href);
     });
+
+    /* ===== RSVP en ligne ===== */
+    /* Colle ici l'URL de ton application web Google Apps Script (voir les instructions) : */
+    const APPS_SCRIPT_URL = "COLLE_TON_URL_ICI";
+
+    (function () {
+      const type = (new URLSearchParams(location.search).get("invite") || "").toLowerCase();
+      const isCouple = type === "couple";
+      const form = document.getElementById(isCouple ? "form-couple" : "form-solo");
+      const status = document.getElementById("rsvp-status");
+      form.hidden = false;
+
+      const details = form.querySelector(".details");
+      const radios = form.querySelectorAll('input[name="Présence"]');
+
+      function toggleDetails() {
+        const yes = form.querySelector('input[name="Présence"]:checked');
+        const attending = yes && yes.value.startsWith("Oui");
+        details.hidden = !attending;
+        details.disabled = !attending; /* champs désactivés = non requis et non envoyés */
+      }
+      radios.forEach((r) => r.addEventListener("change", toggleDetails));
+      toggleDetails();
+
+      if (isCouple) {
+        const kidsCount = document.getElementById("c-kids-count");
+        const kidsInput = document.getElementById("c-kids-n");
+        form.querySelectorAll('input[name="Enfants de moins de 4 ans"]').forEach((r) =>
+          r.addEventListener("change", () => {
+            const yes = r.value === "Oui" && r.checked;
+            kidsCount.hidden = !yes;
+            kidsInput.required = yes;
+            if (!yes) kidsInput.value = "";
+          })
+        );
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.className = "rsvp-status";
+        status.textContent = "";
+        if (!form.reportValidity()) return;
+
+        const btn = form.querySelector("button[type=submit]");
+        btn.disabled = true;
+        btn.textContent = "Envoi en cours…";
+
+        const data = new FormData(form);
+        const payload = { type: form.dataset.type };
+        data.forEach((v, k) => { payload[k] = String(v).trim(); });
+
+        try {
+          /* Pas d'en-tête Content-Type : évite le blocage CORS avec Apps Script */
+          const res = await fetch(https://script.google.com/macros/s/AKfycbyVIa7NG_sC1XhIcRUWdWUwfDFfX8m-ZaySYl5vygGJ-vBa4n5IZS_BPU-QPKPg7i-N/exec, { method: "POST", body: JSON.stringify(payload) });
+          const json = await res.json();
+          if (!json.success) throw new Error(json.message || "Erreur");
+          form.hidden = true;
+          const attending = String(payload["Présence"] || "").startsWith("Oui");
+          status.textContent = attending
+            ? "Merci ! Votre réponse a bien été envoyée. Nous avons hâte de célébrer avec vous."
+            : "Merci d’avoir répondu. Vous nous manquerez !";
+          status.scrollIntoView({ behavior: "smooth", block: "center" });
+        } catch (err) {
+          status.className = "rsvp-status error";
+          status.textContent = "Oups, l’envoi a échoué. Merci de réessayer dans un instant.";
+          btn.disabled = false;
+          btn.textContent = "Envoyer ma réponse";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
