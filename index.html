@@ -834,35 +834,39 @@
               <div class="choices" role="radiogroup" aria-labelledby="c-kids-n-l">
                 <label class="choice"><input type="radio" class="kids-n" name="Nombre d'enfants" value="1"> 1</label>
                 <label class="choice"><input type="radio" class="kids-n" name="Nombre d'enfants" value="2"> 2</label>
-                <label class="choice"><input type="radio" class="kids-n" name="Nombre d'enfants" value="3"> 3</label>
               </div>
             </div>
             <div class="field">
-              <label id="c-Plat principal (invité)-l">Choix du plat principal — pour vous <span class="req">*</span></label>
-              <div class="choices" role="radiogroup" aria-labelledby="c-Plat principal (invité)-l">
+              <label id="c-plat-inv-l">Choix du plat principal — pour vous <span class="req">*</span></label>
+              <div class="choices" role="radiogroup" aria-labelledby="c-plat-inv-l">
                 <label class="choice"><input type="radio" name="Plat principal (invité)" value="Bœuf braisé" required> Bœuf braisé</label>
                 <label class="choice"><input type="radio" name="Plat principal (invité)" value="Filet de saumon à l’aneth"> Filet de saumon à l’aneth</label>
                 <label class="choice"><input type="radio" name="Plat principal (invité)" value="Option végétarienne"> Option végétarienne</label>
               </div>
             </div>
             <div class="field companion-only" hidden>
-              <label id="c-Plat principal (accompagnateur)-l">Choix du plat principal — pour votre accompagnateur(trice) <span class="req">*</span></label>
-              <div class="choices" role="radiogroup" aria-labelledby="c-Plat principal (accompagnateur)-l">
+              <label id="c-plat-acc-l">Choix du plat principal — pour votre accompagnateur(trice) <span class="req">*</span></label>
+              <div class="choices" role="radiogroup" aria-labelledby="c-plat-acc-l">
                 <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Bœuf braisé"> Bœuf braisé</label>
                 <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Filet de saumon à l’aneth"> Filet de saumon à l’aneth</label>
                 <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Option végétarienne"> Option végétarienne</label>
               </div>
             </div>
             <div class="field">
-              <label id="c-allergy-l">Êtes-vous allergique à certains aliments ? Est-ce le cas de l’un ou l’une de vos invité(e)s ? <span class="req">*</span></label>
-              <div class="choices" role="radiogroup" aria-labelledby="c-allergy-l">
-                <label class="choice"><input type="radio" name="Allergie" value="Oui" required> Oui</label>
-                <label class="choice"><input type="radio" name="Allergie" value="Non"> Non</label>
-              </div>
+              <label for="c-all-inv">Allergie ou restriction alimentaire — vous <span class="hint">Laissez vide si aucune. Ex. : arachides, sans gluten, sans porc</span></label>
+              <input type="text" id="c-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
             </div>
-            <div class="field allergy-detail" hidden>
-              <label for="c-all">À quoi êtes-vous allergique (vous ou vos invité(e)s) ? <span class="req">*</span></label>
-              <textarea id="c-all" name="Allergies" minlength="3"></textarea>
+            <div class="field companion-only" hidden>
+              <label for="c-all-acc">Allergie ou restriction alimentaire — votre accompagnateur(trice) <span class="hint">Laissez vide si aucune</span></label>
+              <input type="text" id="c-all-acc" name="Allergie accompagnateur" maxlength="200" autocomplete="off">
+            </div>
+            <div class="field kid-only" data-kid="1" hidden>
+              <label for="c-all-k1">Allergie ou restriction alimentaire — enfant 1 <span class="hint">Laissez vide si aucune</span></label>
+              <input type="text" id="c-all-k1" name="Allergie enfant 1" maxlength="200" autocomplete="off">
+            </div>
+            <div class="field kid-only" data-kid="2" hidden>
+              <label for="c-all-k2">Allergie ou restriction alimentaire — enfant 2 <span class="hint">Laissez vide si aucune</span></label>
+              <input type="text" id="c-all-k2" name="Allergie enfant 2" maxlength="200" autocomplete="off">
             </div>
           </fieldset>
           <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
@@ -880,23 +884,16 @@
             </div>
           <fieldset class="details">
               <div class="field">
-                <label id="s-Plat principal-l">Choix du plat principal — pour vous <span class="req">*</span></label>
-                <div class="choices" role="radiogroup" aria-labelledby="s-Plat principal-l">
+                <label id="s-plat-l">Choix du plat principal — pour vous <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="s-plat-l">
                   <label class="choice"><input type="radio" name="Plat principal" value="Bœuf braisé" required> Bœuf braisé</label>
                   <label class="choice"><input type="radio" name="Plat principal" value="Filet de saumon à l’aneth"> Filet de saumon à l’aneth</label>
                   <label class="choice"><input type="radio" name="Plat principal" value="Option végétarienne"> Option végétarienne</label>
                 </div>
               </div>
             <div class="field">
-              <label id="s-allergy-l">Êtes-vous allergique à certains aliments ? <span class="req">*</span></label>
-              <div class="choices" role="radiogroup" aria-labelledby="s-allergy-l">
-                <label class="choice"><input type="radio" name="Allergie" value="Oui" required> Oui</label>
-                <label class="choice"><input type="radio" name="Allergie" value="Non"> Non</label>
-              </div>
-            </div>
-            <div class="field allergy-detail" hidden>
-              <label for="s-all">À quoi êtes-vous allergique ? <span class="req">*</span></label>
-              <textarea id="s-all" name="Allergies" minlength="3"></textarea>
+              <label for="s-all-inv">Allergie ou restriction alimentaire <span class="hint">Laissez vide si aucune. Ex. : arachides, sans gluten, sans porc</span></label>
+              <input type="text" id="s-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
             </div>
           </fieldset>
           <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
@@ -1138,26 +1135,13 @@
       radios.forEach((r) => r.addEventListener("change", toggleDetails));
       toggleDetails();
 
-      /* Allergies : Oui / Non, puis précision obligatoire si Oui */
-      const allergyDetail = form.querySelector(".allergy-detail");
-      const allergyText = allergyDetail.querySelector("textarea");
-      function updateAllergy() {
-        const a = form.querySelector('input[name="Allergie"]:checked');
-        const yes = !!a && a.value === "Oui";
-        allergyDetail.hidden = !yes;
-        allergyText.disabled = !yes;
-        allergyText.required = yes;
-        if (!yes) allergyText.value = "";
-      }
-      form.querySelectorAll('input[name="Allergie"]').forEach((r) => r.addEventListener("change", updateAllergy));
-      updateAllergy();
-
       if (isCouple) {
         const kidsCount = document.getElementById("c-kids-count");
         const kidsNumbers = form.querySelectorAll(".kids-n");
         const accName = document.getElementById("c-acc");
         const blocks = form.querySelectorAll(".companion-only");
         const dishRadios = form.querySelectorAll('input[name="Plat principal (accompagnateur)"]');
+        const kidFields = form.querySelectorAll(".kid-only");
 
         function updateKids() {
           const k = form.querySelector('input[name="Enfants de moins de 4 ans"]:checked');
@@ -1167,6 +1151,15 @@
             r.required = show;
             r.disabled = !show;
             if (!show) r.checked = false;
+          });
+          const sel = form.querySelector('input[name="Nombre d\'enfants"]:checked');
+          const nb = show && sel ? Number(sel.value) : 0;
+          kidFields.forEach((f) => {
+            const on = nb >= Number(f.dataset.kid);
+            const inp = f.querySelector("input");
+            f.hidden = !on;
+            inp.disabled = !on;
+            if (!on) inp.value = "";
           });
         }
 
@@ -1187,6 +1180,7 @@
 
         form.querySelectorAll('input[name="Accompagné"]').forEach((r) => r.addEventListener("change", updateCompanion));
         form.querySelectorAll('input[name="Enfants de moins de 4 ans"]').forEach((r) => r.addEventListener("change", updateKids));
+        kidsNumbers.forEach((r) => r.addEventListener("change", updateKids));
         updateCompanion();
         updateKids();
       }
