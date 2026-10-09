@@ -450,6 +450,8 @@
       font-size: 1.1rem;
     }
 
+    .gate-intro { max-width: 520px; margin: 0 auto 34px; text-align: center; color: var(--muted); font-size: 1.05rem; }
+
     .rsvp-form {
       max-width: 620px;
       margin: 44px auto 0;
@@ -783,13 +785,24 @@
         </div>
         <p class="rsvp-note reveal" id="rsvp-note">Votre présence rendra cette journée encore plus spéciale.</p>
 
-        <!-- ===== Questionnaire COUPLE (lien ?invite=couple) ===== -->
+        <!-- ===== Étape 1 : identification (prénom + nom, vérifiés dans la liste d'invités) ===== -->
+        <form class="rsvp-form" id="form-gate" novalidate>
+          <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+          <p class="gate-intro">Pour accéder au questionnaire, indiquez votre prénom et votre nom de famille, tels qu’ils figurent sur votre invitation.</p>
+          <div class="field">
+            <label for="g-prenom">Prénom <span class="req">*</span></label>
+            <input type="text" id="g-prenom" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="g-nom">Nom de famille <span class="req">*</span></label>
+            <input type="text" id="g-nom" autocomplete="family-name" required>
+          </div>
+          <div class="submit-row"><button type="submit" class="button">Continuer</button></div>
+        </form>
+
+        <!-- ===== Questionnaire COUPLE (affiché selon la liste d’invités) ===== -->
         <form class="rsvp-form" id="form-couple" data-type="Couple" hidden novalidate>
           <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-          <div class="field">
-            <label for="c-nom">Nom et prénom <span class="req">*</span></label>
-            <input type="text" id="c-nom" name="Nom et prénom" autocomplete="name" required>
-          </div>
             <div class="field">
               <label id="c-attend-l">Seriez-vous parmi nous ? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="c-attend-l">
@@ -855,13 +868,9 @@
           <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
         </form>
 
-        <!-- ===== Questionnaire SOLO (par défaut, ou ?invite=solo) ===== -->
+        <!-- ===== Questionnaire SOLO (affiché selon la liste d’invités) ===== -->
         <form class="rsvp-form" id="form-solo" data-type="Solo" hidden novalidate>
           <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-          <div class="field">
-            <label for="s-nom">Nom et prénom <span class="req">*</span></label>
-            <input type="text" id="s-nom" name="Nom et prénom" autocomplete="name" required>
-          </div>
             <div class="field">
               <label id="s-attend-l">Seriez-vous parmi nous ? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="s-attend-l">
@@ -1066,19 +1075,55 @@
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyaf1B284jQuCeGnIj5ZIOI2w_zPH34CMMt8L-iN0eOaBs3ay_BpoR9_PaVIuiLUJW2/exec";
 
     (function () {
-      let type = (new URLSearchParams(location.search).get("invite") || "").toLowerCase();
-      /* Mémorise le type d'invitation puis nettoie l'adresse (si le stockage est bloqué, on garde ?invite= dans l'adresse) */
-      try {
-        if (type) {
-          localStorage.setItem("invite", type);
-          history.replaceState(null, "", location.pathname + location.hash);
-        } else {
-          type = (localStorage.getItem("invite") || "").toLowerCase();
-        }
-      } catch (e) {}
-      const isCouple = type === "couple";
-      const form = document.getElementById(isCouple ? "form-couple" : "form-solo");
       const status = document.getElementById("rsvp-status");
+      const gate = document.getElementById("form-gate");
+      const forms = { Couple: document.getElementById("form-couple"), Solo: document.getElementById("form-solo") };
+      let identity = null;
+
+      function showError(msg) {
+        status.className = "rsvp-status error";
+        status.textContent = msg;
+      }
+
+      async function post(payload) {
+        /* Pas d'en-tête Content-Type : évite le blocage CORS avec Apps Script */
+        const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
+        return res.json();
+      }
+
+      /* Étape 1 : prénom + nom, vérifiés par Google dans la liste d'invités */
+      gate.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.className = "rsvp-status";
+        status.textContent = "";
+        if (!gate.reportValidity()) return;
+
+        const btn = gate.querySelector("button[type=submit]");
+        btn.disabled = true;
+        btn.textContent = "Vérification…";
+        const prenom = document.getElementById("g-prenom").value.trim();
+        const nom = document.getElementById("g-nom").value.trim();
+
+        try {
+          const json = await post({ action: "verifier", prenom, nom, botcheck: gate.elements.botcheck.value });
+          if (!json.success || !forms[json.type]) {
+            showError(json.message || "Nous ne trouvons pas ce nom dans notre liste.");
+            btn.disabled = false;
+            btn.textContent = "Continuer";
+            return;
+          }
+          identity = { prenom, nom };
+          gate.hidden = true;
+          initForm(forms[json.type], json.type === "Couple");
+        } catch (err) {
+          showError("Oups, la vérification a échoué. Merci de réessayer dans un instant.");
+          btn.disabled = false;
+          btn.textContent = "Continuer";
+        }
+      });
+
+      /* Étape 2 : le questionnaire (Couple ou Solo selon la liste) */
+      function initForm(form, isCouple) {
       form.hidden = false;
 
       const details = form.querySelector(".details");
@@ -1157,14 +1202,21 @@
         btn.textContent = "Envoi en cours…";
 
         const data = new FormData(form);
-        const payload = { type: form.dataset.type };
+        const payload = { prenom: identity.prenom, nom: identity.nom };
         data.forEach((v, k) => { payload[k] = String(v).trim(); });
 
         try {
           /* Pas d'en-tête Content-Type : évite le blocage CORS avec Apps Script */
-          const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
-          const json = await res.json();
-          if (!json.success) throw new Error(json.message || "Erreur");
+          const json = await post(payload);
+          if (!json.success) {
+            if (json.code) { /* nom inconnu ou réponse déjà reçue */
+              showError(json.message);
+              btn.disabled = false;
+              btn.textContent = "Envoyer ma réponse";
+              return;
+            }
+            throw new Error(json.message || "Erreur");
+          }
           form.hidden = true;
           const attending = String(payload["Présence"] || "").startsWith("Oui");
           document.getElementById("rsvp-kicker").hidden = true;
@@ -1181,6 +1233,7 @@
           btn.textContent = "Envoyer ma réponse";
         }
       });
+      }
     })();
   </script>
 </body>
