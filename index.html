@@ -1066,7 +1066,16 @@
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyaf1B284jQuCeGnIj5ZIOI2w_zPH34CMMt8L-iN0eOaBs3ay_BpoR9_PaVIuiLUJW2/exec";
 
     (function () {
-      const type = (new URLSearchParams(location.search).get("invite") || "").toLowerCase();
+      let type = (new URLSearchParams(location.search).get("invite") || "").toLowerCase();
+      /* Mémorise le type d'invitation puis nettoie l'adresse (si le stockage est bloqué, on garde ?invite= dans l'adresse) */
+      try {
+        if (type) {
+          localStorage.setItem("invite", type);
+          history.replaceState(null, "", location.pathname + location.hash);
+        } else {
+          type = (localStorage.getItem("invite") || "").toLowerCase();
+        }
+      } catch (e) {}
       const isCouple = type === "couple";
       const form = document.getElementById(isCouple ? "form-couple" : "form-solo");
       const status = document.getElementById("rsvp-status");

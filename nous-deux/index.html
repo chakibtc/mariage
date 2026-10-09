@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chakib &amp; Sarah | Mariage 2027</title>
+  <script>
+    /* Mémorise l'invitation « couple » puis ouvre l'accueil sans rien dans l'adresse.
+       Si le navigateur bloque le stockage, on retombe sur l'ancien système (?invite=couple). */
+    (function () {
+      var ok = false;
+      try {
+        localStorage.setItem("invite", "couple");
+        ok = localStorage.getItem("invite") === "couple";
+      } catch (e) {}
+      location.replace(ok ? "../" : "../?invite=couple");
+    })();
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url=../?invite=couple"></noscript>
+</head>
+<body>
+  <p><a href="../?invite=couple">Accéder à l’invitation</a></p>
+</body>
+</html>
