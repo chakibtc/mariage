@@ -82,6 +82,7 @@
 
     .section-head { margin-bottom: clamp(44px, 7vw, 80px); text-align: center; }
     .section-head .kicker {
+      text-wrap: balance;
       margin-bottom: 14px;
       color: var(--muted);
       font-size: .92rem;
@@ -116,6 +117,7 @@
       scrollbar-width: none;
     }
     .site-nav ul::-webkit-scrollbar { display: none; }
+    .nav-short { display: none; }
     .site-nav a {
       position: relative;
       padding: 4px 0;
@@ -566,7 +568,12 @@
 
     @media (max-width: 700px) {
       section { padding: 80px 6%; }
-      .site-nav ul { justify-content: flex-start; }
+      .nav-long { display: none; }
+      .nav-short { display: inline; }
+      .site-nav { padding-left: 3%; padding-right: 3%; }
+      .site-nav.scrolled { padding-left: 3%; padding-right: 3%; }
+      .site-nav ul { justify-content: space-between; gap: 4px; overflow: visible; }
+      .site-nav a { font-size: clamp(.66rem, 3.2vw, .78rem); }
       
 
       .timer { grid-template-columns: repeat(2, 1fr); }
@@ -620,8 +627,8 @@
 
   <nav class="site-nav" id="nav" aria-label="Navigation principale">
     <ul>
-      <li><a href="#histoire">Notre histoire</a></li>
-      <li><a href="#jour">Le grand jour</a></li>
+      <li><a href="#histoire"><span class="nav-long">Notre histoire</span><span class="nav-short">Histoire</span></a></li>
+      <li><a href="#jour"><span class="nav-long">Le grand jour</span><span class="nav-short">Jour J</span></a></li>
       <li><a href="#lieu">Lieu</a></li>
       <li><a href="#voyages">Voyages</a></li>
       <li><a href="#galerie">Galerie</a></li>
@@ -786,7 +793,7 @@
     <section id="rsvp" class="rsvp soft">
       <div class="wrap">
         <div class="section-head reveal">
-          <p class="kicker" id="rsvp-kicker">Merci de confirmer votre présence dès que possible !</p>
+          <p class="kicker" id="rsvp-kicker">Merci de confirmer votre présence dès que possible&nbsp;!</p>
           <h2>RSVP</h2>
         </div>
         <p class="rsvp-note reveal" id="rsvp-note">Votre présence rendra cette journée encore plus spéciale.</p>
@@ -810,7 +817,7 @@
         <form class="rsvp-form" id="form-couple" data-type="Couple" hidden novalidate>
           <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
             <div class="field">
-              <label id="c-attend-l">Seriez-vous parmi nous ? <span class="req">*</span></label>
+              <label id="c-attend-l">Seriez-vous parmi nous&nbsp;? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="c-attend-l">
                 <label class="choice"><input type="radio" name="Présence" value="Oui, avec grand plaisir" required> Oui, avec grand plaisir</label>
                 <label class="choice"><input type="radio" name="Présence" value="Non, malheureusement"> Non, malheureusement</label>
@@ -818,7 +825,7 @@
             </div>
           <fieldset class="details">
             <div class="field">
-              <label id="c-with-l">Viendrez-vous avec votre conjoint(e) ? <span class="req">*</span></label>
+              <label id="c-with-l">Viendrez-vous avec votre conjoint(e)&nbsp;? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="c-with-l">
                 <label class="choice"><input type="radio" name="Accompagné" value="Oui" required> Oui</label>
                 <label class="choice"><input type="radio" name="Accompagné" value="Non"> Non</label>
@@ -829,14 +836,14 @@
               <input type="text" id="c-acc" name="Accompagnateur" autocomplete="off">
             </div>
             <div class="field">
-              <label id="c-kids-l">Ramenez-vous un ou des enfants de moins de 4 ans ? <span class="req">*</span></label>
+              <label id="c-kids-l">Ramenez-vous un ou des enfants de moins de 4 ans&nbsp;? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="c-kids-l">
                 <label class="choice"><input type="radio" name="Enfants de moins de 4 ans" value="Oui" required> Oui</label>
                 <label class="choice"><input type="radio" name="Enfants de moins de 4 ans" value="Non"> Non</label>
               </div>
             </div>
             <div class="field" id="c-kids-count" hidden>
-              <label id="c-kids-n-l">Combien d’enfants de moins de 4 ans amenez-vous ? <span class="req">*</span></label>
+              <label id="c-kids-n-l">Combien d’enfants de moins de 4 ans amenez-vous&nbsp;? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="c-kids-n-l">
                 <label class="choice"><input type="radio" class="kids-n" name="Nombre d'enfants" value="1"> 1</label>
                 <label class="choice"><input type="radio" class="kids-n" name="Nombre d'enfants" value="2"> 2</label>
@@ -860,53 +867,53 @@
             </div>
             <div class="allergy-block">
               <div class="field">
-                <label id="c-al-inv-l"><span class="q">Avez-vous des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <label id="c-al-inv-l"><span class="q">Avez-vous des allergies alimentaires dont nous devrons être au courant&nbsp;?</span> <span class="req">*</span></label>
                 <div class="choices" role="radiogroup" aria-labelledby="c-al-inv-l">
                   <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Oui" required> Oui</label>
                   <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Non"> Non</label>
                 </div>
               </div>
               <div class="field allergy-detail" data-yn="Allergie invité (Oui/Non)" hidden>
-                <label for="c-all-inv">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <label for="c-all-inv">Quelle est l’allergie&nbsp;? <span class="hint">Précisez l’allergie exacte (ex.&nbsp;: arachides, œufs, fruits de mer)</span></label>
                 <input type="text" id="c-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
               </div>
             </div>
             <div class="companion-only" hidden>
               <div class="field">
-                <label id="c-al-acc-l"><span class="q">Votre conjoint(e) a-t-il ou elle des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <label id="c-al-acc-l"><span class="q">Votre conjoint(e) a-t-il ou elle des allergies alimentaires dont nous devrons être au courant&nbsp;?</span> <span class="req">*</span></label>
                 <div class="choices" role="radiogroup" aria-labelledby="c-al-acc-l">
                   <label class="choice"><input type="radio" name="Allergie accompagnateur (Oui/Non)" value="Oui" required> Oui</label>
                   <label class="choice"><input type="radio" name="Allergie accompagnateur (Oui/Non)" value="Non"> Non</label>
                 </div>
               </div>
               <div class="field allergy-detail" data-yn="Allergie accompagnateur (Oui/Non)" hidden>
-                <label for="c-all-acc">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <label for="c-all-acc">Quelle est l’allergie&nbsp;? <span class="hint">Précisez l’allergie exacte (ex.&nbsp;: arachides, œufs, fruits de mer)</span></label>
                 <input type="text" id="c-all-acc" name="Allergie accompagnateur" maxlength="200" autocomplete="off">
               </div>
             </div>
             <div class="kid-only" data-kid="1" hidden>
               <div class="field">
-                <label id="c-al-k1-l"><span class="q">Votre enfant a-t-il des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <label id="c-al-k1-l"><span class="q">Votre enfant a-t-il des allergies alimentaires dont nous devrons être au courant&nbsp;?</span> <span class="req">*</span></label>
                 <div class="choices" role="radiogroup" aria-labelledby="c-al-k1-l">
                   <label class="choice"><input type="radio" name="Allergie enfant 1 (Oui/Non)" value="Oui" required> Oui</label>
                   <label class="choice"><input type="radio" name="Allergie enfant 1 (Oui/Non)" value="Non"> Non</label>
                 </div>
               </div>
               <div class="field allergy-detail" data-yn="Allergie enfant 1 (Oui/Non)" hidden>
-                <label for="c-all-k1">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <label for="c-all-k1">Quelle est l’allergie&nbsp;? <span class="hint">Précisez l’allergie exacte (ex.&nbsp;: arachides, œufs, fruits de mer)</span></label>
                 <input type="text" id="c-all-k1" name="Allergie enfant 1" maxlength="200" autocomplete="off">
               </div>
             </div>
             <div class="kid-only" data-kid="2" hidden>
               <div class="field">
-                <label id="c-al-k2-l"><span class="q">Votre enfant 2 a-t-il des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <label id="c-al-k2-l"><span class="q">Votre enfant 2 a-t-il des allergies alimentaires dont nous devrons être au courant&nbsp;?</span> <span class="req">*</span></label>
                 <div class="choices" role="radiogroup" aria-labelledby="c-al-k2-l">
                   <label class="choice"><input type="radio" name="Allergie enfant 2 (Oui/Non)" value="Oui" required> Oui</label>
                   <label class="choice"><input type="radio" name="Allergie enfant 2 (Oui/Non)" value="Non"> Non</label>
                 </div>
               </div>
               <div class="field allergy-detail" data-yn="Allergie enfant 2 (Oui/Non)" hidden>
-                <label for="c-all-k2">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <label for="c-all-k2">Quelle est l’allergie&nbsp;? <span class="hint">Précisez l’allergie exacte (ex.&nbsp;: arachides, œufs, fruits de mer)</span></label>
                 <input type="text" id="c-all-k2" name="Allergie enfant 2" maxlength="200" autocomplete="off">
               </div>
             </div>
@@ -918,7 +925,7 @@
         <form class="rsvp-form" id="form-solo" data-type="Solo" hidden novalidate>
           <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
             <div class="field">
-              <label id="s-attend-l">Seriez-vous parmi nous ? <span class="req">*</span></label>
+              <label id="s-attend-l">Seriez-vous parmi nous&nbsp;? <span class="req">*</span></label>
               <div class="choices" role="radiogroup" aria-labelledby="s-attend-l">
                 <label class="choice"><input type="radio" name="Présence" value="Oui, avec grand plaisir" required> Oui, avec grand plaisir</label>
                 <label class="choice"><input type="radio" name="Présence" value="Non, malheureusement"> Non, malheureusement</label>
@@ -935,14 +942,14 @@
               </div>
             <div class="allergy-block">
               <div class="field">
-                <label id="s-al-inv-l"><span class="q">Avez-vous des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <label id="s-al-inv-l"><span class="q">Avez-vous des allergies alimentaires dont nous devrons être au courant&nbsp;?</span> <span class="req">*</span></label>
                 <div class="choices" role="radiogroup" aria-labelledby="s-al-inv-l">
                   <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Oui" required> Oui</label>
                   <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Non"> Non</label>
                 </div>
               </div>
               <div class="field allergy-detail" data-yn="Allergie invité (Oui/Non)" hidden>
-                <label for="s-all-inv">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <label for="s-all-inv">Quelle est l’allergie&nbsp;? <span class="hint">Précisez l’allergie exacte (ex.&nbsp;: arachides, œufs, fruits de mer)</span></label>
                 <input type="text" id="s-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
               </div>
             </div>
@@ -962,23 +969,23 @@
         </div>
         <div class="faq-list reveal">
           <details class="faq-item" open>
-            <summary>Les enfants sont-ils invités ?</summary>
+            <summary>Les enfants sont-ils invités&nbsp;?</summary>
             <div class="answer"><p>Enfants de 4 ans et moins</p></div>
           </details>
           <details class="faq-item">
-            <summary>Y a-t-il du stationnement ?</summary>
+            <summary>Y a-t-il du stationnement&nbsp;?</summary>
             <div class="answer"><p>Oui, un stationnement est disponible sur place.</p></div>
           </details>
           <details class="faq-item">
-            <summary>Quel est le code vestimentaire ?</summary>
+            <summary>Quel est le code vestimentaire&nbsp;?</summary>
             <div class="answer">
-              <p><strong>Pour les hommes :</strong> tenue classique et élégante, de préférence un costume.</p>
-              <p><strong>Pour les femmes :</strong> tenue de soirée ou tenue traditionnelle.</p>
+              <p><strong>Pour les hommes&nbsp;:</strong> tenue classique et élégante, de préférence un costume.</p>
+              <p><strong>Pour les femmes&nbsp;:</strong> tenue de soirée ou tenue traditionnelle.</p>
               <p class="note">Aucune couleur ni aucun thème n'est imposé. Laissez parler votre style et choisissez une tenue dans laquelle vous vous sentez élégant(e), à l'aise et prêt(e) à célébrer avec nous.</p>
             </div>
           </details>
           <details class="faq-item">
-            <summary>Quelle est la date limite pour le RSVP ?</summary>
+            <summary>Quelle est la date limite pour le RSVP&nbsp;?</summary>
             <div class="answer"><p>Merci de confirmer votre présence le plus tôt possible afin que nous puissions organiser chaque détail avec soin.</p></div>
           </details>
         </div>
@@ -1013,7 +1020,7 @@
       const d = weddingDate - Date.now();
       if (d <= 0) {
         Object.values(ids).forEach((el) => (el.textContent = "0"));
-        message.textContent = "C’est le grand jour !";
+        message.textContent = "C’est le grand jour\u00a0!";
         return;
       }
       ids.days.textContent = Math.floor(d / 86400000);
@@ -1160,7 +1167,7 @@
             btn.textContent = "Continuer";
             return;
           }
-          identity = { prenom, nom };
+          identity = { prenom, nom, famille: json.famille === true };
           gate.hidden = true;
           initForm(forms[json.type], json.type === "Couple");
         } catch (err) {
@@ -1230,7 +1237,7 @@
             });
           });
           const q1 = document.querySelector("#c-al-k1-l .q");
-          if (q1) q1.textContent = (nb >= 2 ? "Votre enfant 1" : "Votre enfant") + " a-t-il des allergies alimentaires dont nous devrons être au courant ?";
+          if (q1) q1.textContent = (nb >= 2 ? "Votre enfant 1" : "Votre enfant") + " a-t-il des allergies alimentaires dont nous devrons être au courant\u00a0?";
           syncAllergies();
         }
 
@@ -1289,10 +1296,12 @@
           const attending = String(payload["Présence"] || "").startsWith("Oui");
           document.getElementById("rsvp-kicker").hidden = true;
           document.getElementById("rsvp-note").hidden = true;
+          const titre = '<span class="thanks-title">Merci d’avoir répondu, nous avons hâte de célébrer avec vous\u00a0!</span>';
+          const cadeau = 'Votre présence est notre plus beau cadeau.';
+          const contribution = ' Si vous souhaitez tout de même contribuer, une participation en argent sera pour nous la plus belle des attentions. Une urne sera à votre disposition à l’accueil.';
           status.innerHTML = attending
-            ? '<span class="thanks-title">Merci d’avoir répondu, nous avons hâte de célébrer avec vous !</span>' +
-              '<span class="thanks-text">Votre présence est notre plus beau cadeau. Si vous souhaitez tout de même contribuer, une participation en argent sera pour nous la plus belle des attentions. Une urne sera à votre disposition à l’accueil.</span>'
-            : '<span class="thanks-title">Merci d’avoir répondu, vous nous manquerez !</span>';
+            ? titre + '<span class="thanks-text">' + cadeau + (identity.famille ? '' : contribution) + '</span>'
+            : '<span class="thanks-title">Merci d’avoir répondu, vous nous manquerez\u00a0!</span>';
           status.scrollIntoView({ behavior: "smooth", block: "center" });
         } catch (err) {
           status.className = "rsvp-status error";
