@@ -474,17 +474,23 @@
     .field input[type="number"],
     .field textarea {
       width: 100%;
-      padding: 12px 0;
-      border: 0;
-      border-bottom: 1px solid var(--ink);
+      padding: 14px 16px;
+      border: 1px solid var(--line);
       border-radius: 0;
-      background: transparent;
+      background: #fff;
       color: var(--ink);
       font: inherit;
       font-size: 1rem;
+      transition: border-color .2s ease;
     }
-    .field textarea { min-height: 84px; resize: vertical; }
-    .field input:focus, .field textarea:focus { outline: none; border-bottom-width: 2px; }
+    .field textarea { min-height: 96px; resize: vertical; }
+    .field input[type="text"]:hover,
+    .field input[type="number"]:hover,
+    .field textarea:hover { border-color: var(--ink); }
+    .field input[type="text"]:focus,
+    .field input[type="number"]:focus,
+    .field textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+    .choice:has(input:focus-visible) { border-color: var(--ink); }
     .choices { display: grid; gap: 10px; }
     .choice {
       display: flex;
@@ -852,21 +858,57 @@
                 <label class="choice"><input type="radio" name="Plat principal (accompagnateur)" value="Option végétarienne"> Option végétarienne</label>
               </div>
             </div>
-            <div class="field">
-              <label for="c-all-inv">Allergie ou restriction alimentaire — vous <span class="hint">Laissez vide si aucune. Ex. : arachides, sans gluten, sans porc</span></label>
-              <input type="text" id="c-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
+            <div class="allergy-block">
+              <div class="field">
+                <label id="c-al-inv-l"><span class="q">Avez-vous des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="c-al-inv-l">
+                  <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Oui" required> Oui</label>
+                  <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Non"> Non</label>
+                </div>
+              </div>
+              <div class="field allergy-detail" data-yn="Allergie invité (Oui/Non)" hidden>
+                <label for="c-all-inv">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <input type="text" id="c-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
+              </div>
             </div>
-            <div class="field companion-only" hidden>
-              <label for="c-all-acc">Allergie ou restriction alimentaire — votre accompagnateur(trice) <span class="hint">Laissez vide si aucune</span></label>
-              <input type="text" id="c-all-acc" name="Allergie accompagnateur" maxlength="200" autocomplete="off">
+            <div class="companion-only" hidden>
+              <div class="field">
+                <label id="c-al-acc-l"><span class="q">Votre accompagnateur(trice) a-t-il ou elle des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="c-al-acc-l">
+                  <label class="choice"><input type="radio" name="Allergie accompagnateur (Oui/Non)" value="Oui" required> Oui</label>
+                  <label class="choice"><input type="radio" name="Allergie accompagnateur (Oui/Non)" value="Non"> Non</label>
+                </div>
+              </div>
+              <div class="field allergy-detail" data-yn="Allergie accompagnateur (Oui/Non)" hidden>
+                <label for="c-all-acc">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <input type="text" id="c-all-acc" name="Allergie accompagnateur" maxlength="200" autocomplete="off">
+              </div>
             </div>
-            <div class="field kid-only" data-kid="1" hidden>
-              <label for="c-all-k1">Allergie ou restriction alimentaire — enfant 1 <span class="hint">Laissez vide si aucune</span></label>
-              <input type="text" id="c-all-k1" name="Allergie enfant 1" maxlength="200" autocomplete="off">
+            <div class="kid-only" data-kid="1" hidden>
+              <div class="field">
+                <label id="c-al-k1-l"><span class="q">Votre enfant a-t-il des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="c-al-k1-l">
+                  <label class="choice"><input type="radio" name="Allergie enfant 1 (Oui/Non)" value="Oui" required> Oui</label>
+                  <label class="choice"><input type="radio" name="Allergie enfant 1 (Oui/Non)" value="Non"> Non</label>
+                </div>
+              </div>
+              <div class="field allergy-detail" data-yn="Allergie enfant 1 (Oui/Non)" hidden>
+                <label for="c-all-k1">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <input type="text" id="c-all-k1" name="Allergie enfant 1" maxlength="200" autocomplete="off">
+              </div>
             </div>
-            <div class="field kid-only" data-kid="2" hidden>
-              <label for="c-all-k2">Allergie ou restriction alimentaire — enfant 2 <span class="hint">Laissez vide si aucune</span></label>
-              <input type="text" id="c-all-k2" name="Allergie enfant 2" maxlength="200" autocomplete="off">
+            <div class="kid-only" data-kid="2" hidden>
+              <div class="field">
+                <label id="c-al-k2-l"><span class="q">Votre enfant 2 a-t-il des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="c-al-k2-l">
+                  <label class="choice"><input type="radio" name="Allergie enfant 2 (Oui/Non)" value="Oui" required> Oui</label>
+                  <label class="choice"><input type="radio" name="Allergie enfant 2 (Oui/Non)" value="Non"> Non</label>
+                </div>
+              </div>
+              <div class="field allergy-detail" data-yn="Allergie enfant 2 (Oui/Non)" hidden>
+                <label for="c-all-k2">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <input type="text" id="c-all-k2" name="Allergie enfant 2" maxlength="200" autocomplete="off">
+              </div>
             </div>
           </fieldset>
           <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
@@ -891,9 +933,18 @@
                   <label class="choice"><input type="radio" name="Plat principal" value="Option végétarienne"> Option végétarienne</label>
                 </div>
               </div>
-            <div class="field">
-              <label for="s-all-inv">Allergie ou restriction alimentaire <span class="hint">Laissez vide si aucune. Ex. : arachides, sans gluten, sans porc</span></label>
-              <input type="text" id="s-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
+            <div class="allergy-block">
+              <div class="field">
+                <label id="s-al-inv-l"><span class="q">Avez-vous des allergies alimentaires dont nous devrons être au courant ?</span> <span class="req">*</span></label>
+                <div class="choices" role="radiogroup" aria-labelledby="s-al-inv-l">
+                  <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Oui" required> Oui</label>
+                  <label class="choice"><input type="radio" name="Allergie invité (Oui/Non)" value="Non"> Non</label>
+                </div>
+              </div>
+              <div class="field allergy-detail" data-yn="Allergie invité (Oui/Non)" hidden>
+                <label for="s-all-inv">Quelle est l’allergie ? <span class="hint">Précisez l’allergie exacte (ex. : arachides, œufs, fruits de mer)</span></label>
+                <input type="text" id="s-all-inv" name="Allergie invité" maxlength="200" autocomplete="off">
+              </div>
             </div>
           </fieldset>
           <div class="submit-row"><button type="submit" class="button">Envoyer ma réponse</button></div>
@@ -1135,6 +1186,22 @@
       radios.forEach((r) => r.addEventListener("change", toggleDetails));
       toggleDetails();
 
+      /* Allergies : la boîte de texte n'apparaît (et n'est obligatoire) que si la réponse est « Oui » */
+      function syncAllergies() {
+        form.querySelectorAll(".allergy-detail").forEach((d) => {
+          const name = d.dataset.yn;
+          const first = form.querySelector('input[name="' + name + '"]');
+          const sel = form.querySelector('input[name="' + name + '"]:checked');
+          const on = !!sel && sel.value === "Oui" && !first.disabled;
+          const inp = d.querySelector("input");
+          d.hidden = !on;
+          inp.disabled = !on;
+          inp.required = on;
+          if (!on) inp.value = "";
+        });
+      }
+      form.querySelectorAll('input[name$="(Oui/Non)"]').forEach((r) => r.addEventListener("change", syncAllergies));
+
       if (isCouple) {
         const kidsCount = document.getElementById("c-kids-count");
         const kidsNumbers = form.querySelectorAll(".kids-n");
@@ -1156,11 +1223,15 @@
           const nb = show && sel ? Number(sel.value) : 0;
           kidFields.forEach((f) => {
             const on = nb >= Number(f.dataset.kid);
-            const inp = f.querySelector("input");
             f.hidden = !on;
-            inp.disabled = !on;
-            if (!on) inp.value = "";
+            f.querySelectorAll("input").forEach((i) => {
+              i.disabled = !on;
+              if (!on) { if (i.type === "radio") i.checked = false; else i.value = ""; }
+            });
           });
+          const q1 = document.querySelector("#c-al-k1-l .q");
+          if (q1) q1.textContent = (nb >= 2 ? "Votre enfant 1" : "Votre enfant") + " a-t-il des allergies alimentaires dont nous devrons être au courant ?";
+          syncAllergies();
         }
 
         function updateCompanion() {
@@ -1175,7 +1246,9 @@
           if (!yes) {
             accName.value = "";
             dishRadios.forEach((r) => { r.checked = false; });
+            form.querySelectorAll('.companion-only input[type="radio"]').forEach((r) => { r.checked = false; });
           }
+          syncAllergies();
         }
 
         form.querySelectorAll('input[name="Accompagné"]').forEach((r) => r.addEventListener("change", updateCompanion));
@@ -1184,6 +1257,7 @@
         updateCompanion();
         updateKids();
       }
+      syncAllergies();
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
