@@ -477,6 +477,7 @@
       max-width: 620px;
       margin: 44px auto 0;
       text-align: left;
+      scroll-margin-top: 90px;
     }
     .rsvp-form[hidden], .rsvp-form [hidden], .rsvp-form fieldset[hidden] { display: none !important; }
     .rsvp-form fieldset { border: 0; min-width: 0; }
@@ -752,7 +753,6 @@
           <p class="kicker" id="rsvp-kicker">Merci de confirmer votre présence dès que possible&nbsp;!</p>
           <h2>RSVP</h2>
         </div>
-        <p class="rsvp-note reveal" id="rsvp-note">Votre présence rendra cette journée encore plus spéciale.</p>
 
         <!-- ===== Étape 1 : identification (prénom + nom, vérifiés dans la liste d'invités) ===== -->
         <form class="rsvp-form" id="form-gate" novalidate>
@@ -1186,6 +1186,9 @@
       /* Étape 2 : le questionnaire (Couple ou Solo selon la liste) */
       function initForm(form, isCouple) {
       form.hidden = false;
+      requestAnimationFrame(() => {
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
       const details = form.querySelector(".details");
       const radios = form.querySelectorAll('input[name="Présence"]');
@@ -1301,7 +1304,7 @@
           form.hidden = true;
           const attending = String(payload["Présence"] || "").startsWith("Oui");
           document.getElementById("rsvp-kicker").hidden = true;
-          document.getElementById("rsvp-note").hidden = true;
+
           const titre = '<span class="thanks-title">Merci d’avoir répondu, nous avons hâte de célébrer avec vous\u00a0!</span>';
           const cadeau = 'Votre présence est notre plus beau cadeau.';
           const contribution = ' Si vous souhaitez tout de même contribuer, une participation en argent sera pour nous la plus belle des attentions. Une urne sera à votre disposition à l’accueil.';
