@@ -424,23 +424,42 @@
     .lightbox .prev { left: 20px; top: 50%; transform: translateY(-50%); }
     .lightbox .next { right: 20px; top: 50%; transform: translateY(-50%); }
 
-    /* ---------- Citation ---------- */
+    /* ---------- Citation + signature ---------- */
     .quote { text-align: center; }
     .quote blockquote {
-      max-width: 880px;
+      max-width: 660px;
       margin: 0 auto;
-      font-family: var(--serif);
-      font-size: clamp(2rem, 4.8vw, 3.4rem);
-      font-style: italic;
-      line-height: 1.2;
+      font-family: var(--sans);
+      font-size: clamp(1.25rem, 2.8vw, 1.7rem);
+      font-style: normal;
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: .005em;
+      text-wrap: balance;
+    }
+    .quote blockquote::before {
+      content: "";
+      display: block;
+      width: 44px;
+      height: 1px;
+      margin: 0 auto 36px;
+      background: var(--accent);
     }
     .quote cite {
       display: block;
-      margin-top: 26px;
+      margin-top: 30px;
       color: var(--muted);
       font-family: var(--sans);
       font-size: .95rem;
       font-style: normal;
+      font-weight: 500;
+      letter-spacing: .04em;
+    }
+    .quote .signature {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 400;
     }
 
     /* ---------- RSVP ---------- */
@@ -545,15 +564,6 @@
     .faq-item .answer p + p { margin-top: 12px; }
     .faq-item .answer strong { color: var(--ink); font-weight: 500; }
     .faq-item .answer .note { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--ink); }
-
-    /* ---------- Pied de page ---------- */
-    footer {
-      padding: 90px 20px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-    }
-    footer h2 { font-size: clamp(2.6rem, 6vw, 4rem); }
-    footer p { margin-top: 12px; color: var(--muted); }
 
     /* ---------- Révélation au défilement ---------- */
     .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
@@ -987,16 +997,12 @@
 
     <section class="quote soft">
       <blockquote class="reveal">
-        Le plus beau voyage n'est pas celui que l'on fait autour du monde, mais celui que l'on entreprend à deux.
+        Le plus beau voyage n’est pas celui que l’on fait autour du monde, mais celui que l’on entreprend à deux.
         <cite>Chakib &amp; Sarah</cite>
       </blockquote>
+      <p class="signature reveal">Avec amour, 12&nbsp;juin 2027</p>
     </section>
   </main>
-
-  <footer>
-    <h2>Chakib &amp; Sarah</h2>
-    <p>Avec amour, 12 juin 2027</p>
-  </footer>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galerie photo">
     <button type="button" class="close" aria-label="Fermer">&times;</button>
