@@ -35,7 +35,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 70px;
+      scroll-padding-top: 76px;
       -webkit-text-size-adjust: 100%;
     }
 
@@ -349,7 +349,26 @@
     .cta-row { margin-top: 12px; text-align: center; }
 
     /* ---------- Lieu ---------- */
-    .location { text-align: center; }
+    .location {
+      position: relative;
+      isolation: isolate;
+      text-align: center;
+      color: #fff;
+      background: #1a1a1a url("images/classique.jpg") center / cover no-repeat;
+    }
+    .location::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background: linear-gradient(rgba(12, 12, 12, .62), rgba(12, 12, 12, .74));
+    }
+    .location .section-head .kicker { color: rgba(255, 255, 255, .82); }
+    .location .address { color: rgba(255, 255, 255, .88); }
+    .venue-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 14px; margin-top: 34px; }
+    .venue-actions .button { margin-top: 0; }
+    .button-ghost { border-color: rgba(255, 255, 255, .75); background: transparent; color: #fff; }
+    .button-ghost:hover { border-color: #fff; background: #fff; color: var(--ink); }
     .venue h3 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
     .address { margin-top: 18px; color: var(--muted); font-style: normal; }
 
@@ -481,7 +500,7 @@
     }
     .rsvp-form[hidden], .rsvp-form [hidden], .rsvp-form fieldset[hidden] { display: none !important; }
     .rsvp-form fieldset { border: 0; min-width: 0; }
-    .field { margin-bottom: 30px; }
+    .field { margin-bottom: 30px; scroll-margin-top: 110px; }
     .field > label, .field > legend {
       display: block;
       margin-bottom: 10px;
@@ -579,6 +598,7 @@
 
     @media (max-width: 700px) {
       section { padding: 80px 6%; }
+      html { scroll-padding-top: 90px; }
       .nav-long { display: none; }
       .nav-short { display: inline; }
       .site-nav { padding-left: 3%; padding-right: 3%; }
@@ -745,12 +765,20 @@
             6010 Boulevard des Grandes-Prairies<br>
             Saint-Léonard, Québec H1P 1A5
           </address>
-          <a
-            class="button"
-            href="https://www.google.com/maps/search/?api=1&amp;query=Salle+de+R%C3%A9ception+Le+Classique%2C+6010+Boulevard+des+Grandes-Prairies%2C+Saint-L%C3%A9onard%2C+QC"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Voir l’itinéraire</a>
+          <div class="venue-actions">
+            <a
+              class="button button-light"
+              href="https://www.google.com/maps/search/?api=1&amp;query=Salle+de+R%C3%A9ception+Le+Classique%2C+6010+Boulevard+des+Grandes-Prairies%2C+Saint-L%C3%A9onard%2C+QC"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Voir l’itinéraire</a>
+            <a
+              class="button button-ghost"
+              href="https://cclassique.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Site de la salle</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1149,9 +1177,31 @@
       const forms = { Couple: document.getElementById("form-couple"), Solo: document.getElementById("form-solo") };
       let identity = null;
 
+      /* Défilement fiable sur cellulaire : on ferme le clavier, on attend que la mise en page
+         se stabilise, puis on place l'élément en tenant compte du menu fixe. */
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function navHeight() {
+        const n = document.getElementById("nav");
+        return n ? n.offsetHeight : 0;
+      }
+      function scrollToEl(el, where) {
+        if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+        setTimeout(() => requestAnimationFrame(() => {
+          const r = el.getBoundingClientRect();
+          const marge = navHeight() + 16;
+          const decalage = where === "center" ? Math.max(marge, (window.innerHeight - r.height) / 2) : marge;
+          window.scrollTo({ top: Math.max(0, window.scrollY + r.top - decalage), behavior: reduceMotion ? "auto" : "smooth" });
+        }), 150);
+      }
+      function ensureVisible(el) {
+        const r = el.getBoundingClientRect();
+        if (r.top < navHeight() + 8 || r.bottom > window.innerHeight - 8) scrollToEl(el, "center");
+      }
+
       function showError(msg) {
         status.className = "rsvp-status error";
         status.textContent = msg;
+        ensureVisible(status);
       }
 
       async function post(payload) {
@@ -1194,9 +1244,7 @@
       /* Étape 2 : le questionnaire (Couple ou Solo selon la liste) */
       function initForm(form, isCouple) {
       form.hidden = false;
-      requestAnimationFrame(() => {
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+      scrollToEl(form, "top");
 
       const details = form.querySelector(".details");
       const radios = form.querySelectorAll('input[name="Présence"]');
@@ -1319,7 +1367,7 @@
           status.innerHTML = attending
             ? titre + '<span class="thanks-text">' + cadeau + (identity.famille ? '' : contribution) + '</span>'
             : '<span class="thanks-title">Merci d’avoir répondu, vous nous manquerez\u00a0!</span>';
-          status.scrollIntoView({ behavior: "smooth", block: "center" });
+          scrollToEl(status, "center");
         } catch (err) {
           status.className = "rsvp-status error";
           status.textContent = "Oups, l’envoi a échoué. Merci de réessayer dans un instant.";
