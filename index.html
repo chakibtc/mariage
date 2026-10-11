@@ -328,6 +328,11 @@
       line-height: 1.2;
     }
     .story-copy .date-mark { color: var(--ink); font-weight: 500; }
+    #histoire {
+      --story-pt: clamp(28px, 5vw, 64px);
+      padding-top: var(--story-pt);
+      scroll-margin-top: calc(-4px - var(--story-pt));
+    }
 
     /* ---------- Programme ---------- */
     .schedule-times {
@@ -598,7 +603,13 @@
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .story-grid { grid-template-columns: 1fr; }
-      .story-photo { max-width: 440px; margin: 0 auto; }
+      .story-photo img {
+        aspect-ratio: auto;
+        height: clamp(180px, 30vh, 300px);
+        height: clamp(180px, 30svh, 300px);
+        object-position: 35% 28%;
+      }
+      .story-photo { width: 100%; max-width: 440px; margin: 0 auto; }
       .story .section-head { text-align: center; }
     }
 
