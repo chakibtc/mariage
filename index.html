@@ -267,30 +267,27 @@
     .bg-cake .bg-img { background-image: url("images/cake.jpg"); background-position: 50% 60%; filter: brightness(.5) saturate(.9) blur(1.5px); transform: scale(1.04); }
     .bg-cake .bg-pin::after { background: linear-gradient(rgba(8, 10, 17, .6), rgba(8, 10, 17, .74)); }
 
-.bg-menu .bg-img {
-  background-image: url("images/menu.jpg");
-  background-position: center;
-  filter: brightness(.82) saturate(.9) contrast(1.05);
-}
+    .bg-cappa .bg-img { background-image: url("images/cappadoce.jpg"); background-position: 47% 52%; filter: brightness(.68) saturate(1.05); }
+    .bg-cappa .bg-pin::after { background: linear-gradient(rgba(10, 12, 20, .42), rgba(10, 12, 20, .58)); }
+    /* les trois sections restent distinctes : fine ligne de séparation + bande plus sombre pour Voyages */
+    .bg-cappa > section + section { border-top: 1px solid rgba(255, 255, 255, .22); }
+    .bg-cappa > section.travel-section { background: rgba(8, 10, 16, .3); }
 
-.bg-menu .bg-pin::after {
-  background: linear-gradient(rgba(14, 12, 10, .18), rgba(14, 12, 10, .32));
-}
+    .bg-menu .bg-img { background-image: url("images/menu.jpg"); background-position: 50% 50%; filter: brightness(.74) saturate(.92) contrast(1.03); }
+    .bg-menu .bg-pin::after { background: linear-gradient(rgba(14, 12, 10, .36), rgba(14, 12, 10, .52)); }
 
-.bg-photo9 .bg-img {
-  background-image: url("images/photo9.JPG");
-  background-position: center;
-  background-size: cover;
-}
+    /* Fenêtre photo en haut du RSVP : la serviette et ses initiales C&S, sans aucun texte par-dessus */
+    .rsvp { padding-top: 0; scroll-margin-top: -110px; }
+    .rsvp-photo {
+      height: clamp(300px, 36vw, 440px);
+      margin: 0 calc(50% - 50vw);
+      background: url("images/menu.jpg") 56% 64% / cover no-repeat;
+      filter: brightness(.96) saturate(.95);
+      -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 70%, transparent);
+      mask-image: linear-gradient(transparent, #000 16%, #000 70%, transparent);
+    }
+    .rsvp > .wrap { padding-top: clamp(20px, 4vw, 44px); }
 
-.bg-photo9 .bg-pin::after {
-  background: rgba(0, 0, 0, .48);
-}
-
-/* Garde le texte important de la FAQ lisible sur la photo */
-.has-bg .faq-item .answer strong {
-  color: #fff;
-}
     /* ---------- Boutons ---------- */
     .button {
       display: inline-block;
@@ -659,6 +656,12 @@
     .rsvp .field input[type="text"]:hover, .rsvp .field input[type="number"]:hover, .rsvp .choice:hover { border-color: var(--accent); }
     .rsvp .field input[type="text"]:focus, .rsvp .field input[type="number"]:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
     .rsvp .choice:has(input:checked), .rsvp .choice:has(input:focus-visible) { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+    .bg-cappa .faq-item .answer strong, .bg-cappa .faq-item .answer .note { color: #fff; }
+    .bg-cappa .faq-item summary::after {
+      background:
+        linear-gradient(#fff, #fff) center / 100% 1px no-repeat,
+        linear-gradient(#fff, #fff) center / 1px 100% no-repeat;
+    }
     .rsvp .rsvp-status .thanks-title { color: #fff; }
     .rsvp .rsvp-status.error { color: #ffc4c4; }
 
@@ -720,13 +723,6 @@
     min-height: 44px;
     align-items: center;
   }
-  .bg-menu .bg-img {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: #29251f;
-}
-
-
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -755,7 +751,7 @@
 
   <nav class="site-nav" id="nav" aria-label="Navigation principale">
     <ul>
-      <li><a href="#accueil"><span class="nav-long">Accueil</span><span class="nav-short">Home</span></a></li>
+      <li><a href="#accueil">Accueil</a></li>
       <li><a href="#jour"><span class="nav-long">Le grand jour</span><span class="nav-short">Jour J</span></a></li>
       <li><a href="#lieu">Lieu</a></li>
       <li><a href="#rsvp">RSVP</a></li>
@@ -765,7 +761,7 @@
     </ul>
   </nav>
 
-  <div id="accueil" class="has-bg hero-zone">
+  <div class="has-bg hero-zone" id="accueil">
     <div class="bg-track" aria-hidden="true">
       <div class="bg-pin">
         <div class="slide slide-one"></div>
@@ -876,6 +872,7 @@
 
     <section id="rsvp" class="rsvp has-bg bg-menu">
       <div class="bg-track" aria-hidden="true"><div class="bg-pin"><div class="bg-img"></div></div></div>
+      <div class="rsvp-photo" role="img" aria-label="Serviette brodée aux initiales C&amp;S"></div>
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker" id="rsvp-kicker">Merci de confirmer votre présence dès que possible&nbsp;!</p>
@@ -1045,89 +1042,86 @@
       </div>
     </section>
 
-    <section id="faq" class="faq has-bg bg-photo9">
-       <div class="bg-track" aria-hidden="true">
-    <div class="bg-pin"><div class="bg-img"></div></div>
-  </div>
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="kicker">Tout ce que vous voulez savoir</p>
-          <h2>FAQ</h2>
+    <div class="has-bg bg-cappa">
+      <div class="bg-track" aria-hidden="true"><div class="bg-pin"><div class="bg-img"></div></div></div>
+      <section id="faq" class="faq">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">Tout ce que vous voulez savoir</p>
+            <h2>FAQ</h2>
+          </div>
+          <div class="faq-list reveal">
+            <details class="faq-item" open>
+              <summary>Les enfants sont-ils invités&nbsp;?</summary>
+              <div class="answer"><p>Enfants de 4 ans et moins</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Y a-t-il du stationnement&nbsp;?</summary>
+              <div class="answer"><p>Oui, un stationnement est disponible sur place.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Quel est le code vestimentaire&nbsp;?</summary>
+              <div class="answer">
+                <p><strong>Pour les hommes&nbsp;:</strong> tenue classique et élégante, de préférence un costume.</p>
+                <p><strong>Pour les femmes&nbsp;:</strong> tenue de soirée ou tenue traditionnelle.</p>
+                <p class="note">Aucune couleur ni aucun thème n'est imposé. Laissez parler votre style et choisissez une tenue dans laquelle vous vous sentez élégant(e), à l'aise et prêt(e) à célébrer avec nous.</p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Quelle est la date limite pour le RSVP&nbsp;?</summary>
+              <div class="answer"><p>Merci de confirmer votre présence le plus tôt possible afin que nous puissions organiser chaque détail avec soin.</p></div>
+            </details>
+          </div>
         </div>
-        <div class="faq-list reveal">
-          <details class="faq-item" open>
-            <summary>Les enfants sont-ils invités&nbsp;?</summary>
-            <div class="answer"><p>Enfants de 4 ans et moins</p></div>
-          </details>
-          <details class="faq-item">
-            <summary>Y a-t-il du stationnement&nbsp;?</summary>
-            <div class="answer"><p>Oui, un stationnement est disponible sur place.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary>Quel est le code vestimentaire&nbsp;?</summary>
-            <div class="answer">
-              <p><strong>Pour les hommes&nbsp;:</strong> tenue classique et élégante, de préférence un costume.</p>
-              <p><strong>Pour les femmes&nbsp;:</strong> tenue de soirée ou tenue traditionnelle.</p>
-              <p class="note">Aucune couleur ni aucun thème n'est imposé. Laissez parler votre style et choisissez une tenue dans laquelle vous vous sentez élégant(e), à l'aise et prêt(e) à célébrer avec nous.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary>Quelle est la date limite pour le RSVP&nbsp;?</summary>
-            <div class="answer"><p>Merci de confirmer votre présence le plus tôt possible afin que nous puissions organiser chaque détail avec soin.</p></div>
-          </details>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="voyages" class="travel-section has-bg bg-photo9">
-      <div class="bg-track" aria-hidden="true">
-    <div class="bg-pin"><div class="bg-img"></div></div>
-  </div>
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="kicker">Des souvenirs à travers le monde</p>
-          <h2>Nos voyages de 2026</h2>
+      <section id="voyages" class="travel-section">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">Des souvenirs à travers le monde</p>
+            <h2>Nos voyages de 2026</h2>
+          </div>
+          <ul class="trips reveal">
+            <li>
+              <h3><span class="flag" aria-hidden="true">🇺🇸</span>Kansas City</h3>
+              <p>Coupe du Monde — Algérie contre Autriche.</p>
+            </li>
+            <li>
+              <h3><span class="flag" aria-hidden="true">🇹🇷</span>Istanbul</h3>
+              <p>Une ville fascinante entre deux continents.</p>
+            </li>
+            <li>
+              <h3><span class="flag" aria-hidden="true">🎈</span>Cappadoce</h3>
+              <p>Une expérience magique parmi les montgolfières.</p>
+            </li>
+            <li>
+              <h3><span class="flag" aria-hidden="true">🇮🇹</span>Les Pouilles</h3>
+              <p>Polignano a Mare, Crispiano et Lecce.</p>
+            </li>
+          </ul>
         </div>
-        <ul class="trips reveal">
-          <li>
-            <h3><span class="flag" aria-hidden="true">🇺🇸</span>Kansas City</h3>
-            <p>Coupe du Monde — Algérie contre Autriche.</p>
-          </li>
-          <li>
-            <h3><span class="flag" aria-hidden="true">🇹🇷</span>Istanbul</h3>
-            <p>Une ville fascinante entre deux continents.</p>
-          </li>
-          <li>
-            <h3><span class="flag" aria-hidden="true">🎈</span>Cappadoce</h3>
-            <p>Une expérience magique parmi les montgolfières.</p>
-          </li>
-          <li>
-            <h3><span class="flag" aria-hidden="true">🇮🇹</span>Les Pouilles</h3>
-            <p>Polignano a Mare, Crispiano et Lecce.</p>
-          </li>
-        </ul>
-      </div>
-    </section>
+      </section>
 
-    <section id="galerie" class="gallery-section">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="kicker">Quelques instants précieux</p>
-          <h2>Galerie</h2>
-        </div>
-        <div class="gallery" id="gallery">
-          <button type="button" aria-label="Agrandir la photo 0"><img src="images/photo00.JPG" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 1"><img src="images/photo01.JPG" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 3"><img src="images/photo03.JPG" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 4"><img src="images/photo4.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 5"><img src="images/photo5.jpeg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 7"><img src="images/photo6.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 8"><img src="images/photo7.jpeg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
-          <button type="button" aria-label="Agrandir la photo 9"><img src="images/photo8.jpeg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+      <section id="galerie" class="gallery-section">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="kicker">Quelques instants précieux</p>
+            <h2>Galerie</h2>
+          </div>
+          <div class="gallery" id="gallery">
+            <button type="button" aria-label="Agrandir la photo 0"><img src="images/photo00.JPG" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 1"><img src="images/photo01.JPG" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 3"><img src="images/photo03.JPG" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 4"><img src="images/photo4.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 5"><img src="images/photo5.jpeg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 7"><img src="images/photo6.jpg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 8"><img src="images/photo7.jpeg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
+            <button type="button" aria-label="Agrandir la photo 9"><img src="images/photo8.jpeg" alt="Souvenir de Chakib et Sarah" loading="lazy"></button>
        
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <section class="quote soft">
       <blockquote class="reveal">
@@ -1183,13 +1177,16 @@
       const spy = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            const id = entry.target.id === "histoire" ? "accueil" : entry.target.id;
             navLinks.forEach((a) =>
-              a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id)
+              a.classList.toggle("active", a.getAttribute("href") === "#" + id)
             );
           }
         });
       }, { rootMargin: "-45% 0px -50% 0px" });
       sections.forEach((s) => s && spy.observe(s));
+      const histoire = document.getElementById("histoire");
+      if (histoire) spy.observe(histoire);
     }
 
     /* Apparition douce des éléments */
