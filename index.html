@@ -149,9 +149,7 @@
       position: relative;
       display: grid;
       min-height: 100svh;
-      overflow: hidden;
       place-items: center;
-      background: #3a3a3a;
       color: #fff;
       text-align: center;
     }
@@ -170,14 +168,6 @@
       0%, 100% { opacity: 0; }
       10%, 40% { opacity: 1; }
       50% { opacity: 0; }
-    }
-
-    .hero::after {
-      position: absolute;
-      z-index: 1;
-      inset: 0;
-      content: "";
-      background: rgba(0, 0, 0, .38);
     }
 
     .hero-content {
@@ -246,6 +236,39 @@
       0%, 100% { transform: translate(-50%, 0); opacity: .3; }
       50% { transform: translate(-50%, 8px); opacity: .9; }
     }
+
+    /* ---------- Sections avec photo de fond ----------
+       La photo reste en place pendant le défilement (« collante »), donc elle n'est jamais
+       étirée ni floue, même sur une section très longue comme le formulaire. */
+    .has-bg {
+      --line: rgba(255, 255, 255, .3);
+      --muted: rgba(255, 255, 255, .78);
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      overflow: clip;
+      background: #14151a;
+      color: #fff;
+    }
+    .bg-track { position: absolute; z-index: -1; inset: 0; pointer-events: none; }
+    .bg-pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: min(100lvh, 100%);
+      overflow: hidden;
+    }
+    .bg-pin::after { position: absolute; inset: 0; content: ""; }
+    .bg-img { position: absolute; inset: 0; background-position: center; background-size: cover; }
+
+    .hero-zone .bg-pin::after { background: rgba(0, 0, 0, .42); }
+    .hero-zone .countdown { padding-top: clamp(24px, 4vw, 56px); }
+
+    .bg-cake .bg-img { background-image: url("images/cake.jpg"); background-position: 50% 60%; filter: brightness(.5) saturate(.9) blur(1.5px); transform: scale(1.04); }
+    .bg-cake .bg-pin::after { background: linear-gradient(rgba(8, 10, 17, .6), rgba(8, 10, 17, .74)); }
+
+    .bg-menu .bg-img { background-image: url("images/menu.jpg"); background-position: 50% 50%; filter: brightness(.55) saturate(.85) contrast(1.05); }
+    .bg-menu .bg-pin::after { background: linear-gradient(rgba(14, 12, 10, .5), rgba(14, 12, 10, .68)); }
 
     /* ---------- Boutons ---------- */
     .button {
@@ -596,6 +619,28 @@
     .faq-item .answer strong { color: var(--ink); font-weight: 500; }
     .faq-item .answer .note { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--ink); }
 
+    /* ---------- Texte et formulaire sur photo ---------- */
+    .has-bg h2, .has-bg .time-box span, .has-bg .schedule-times .clock { text-shadow: 0 1px 22px rgba(0, 0, 0, .35); }
+    .has-bg :focus-visible { outline-color: #fff; }
+    .has-bg .button { border-color: #fff; background: #fff; color: var(--ink); }
+    .has-bg .button:hover { background: transparent; color: #fff; }
+    .has-bg .button.button-outline { border-color: rgba(255, 255, 255, .7); background: transparent; color: #fff; }
+    .has-bg .button.button-outline:hover { border-color: #fff; background: #fff; color: var(--ink); }
+
+    .schedule-times .label { text-transform: uppercase; letter-spacing: .16em; font-size: .78rem; font-weight: 500; }
+    .schedule-times .clock { font-weight: 400; letter-spacing: .01em; }
+    .punctual strong { text-shadow: 0 1px 22px rgba(0, 0, 0, .35); }
+
+    .rsvp .field > label, .rsvp .field > legend { font-family: var(--sans); font-size: 1.02rem; font-weight: 500; line-height: 1.5; letter-spacing: .005em; }
+    .rsvp .field .hint { margin-top: 3px; font-weight: 400; }
+    .rsvp .field .req { color: #d6bb86; }
+    .rsvp .choice { color: var(--ink); }
+    .rsvp .field input[type="text"]:hover, .rsvp .field input[type="number"]:hover, .rsvp .choice:hover { border-color: var(--accent); }
+    .rsvp .field input[type="text"]:focus, .rsvp .field input[type="number"]:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+    .rsvp .choice:has(input:checked), .rsvp .choice:has(input:focus-visible) { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+    .rsvp .rsvp-status .thanks-title { color: #fff; }
+    .rsvp .rsvp-status.error { color: #ffc4c4; }
+
     /* ---------- Révélation au défilement ---------- */
     .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -692,10 +737,15 @@
     </ul>
   </nav>
 
-  <header class="hero">
-    <div class="slide slide-one" aria-hidden="true"></div>
-    <div class="slide slide-two" aria-hidden="true"></div>
+  <div class="has-bg hero-zone">
+    <div class="bg-track" aria-hidden="true">
+      <div class="bg-pin">
+        <div class="slide slide-one"></div>
+        <div class="slide slide-two"></div>
+      </div>
+    </div>
 
+  <header class="hero">
     <div class="hero-content">
       <p class="hero-kicker">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<br>
   وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا<br>
@@ -711,8 +761,7 @@
     <span class="scroll-hint" aria-hidden="true"></span>
   </header>
 
-  <main>
-    <section class="countdown soft" aria-labelledby="countdown-title">
+    <section class="countdown" aria-labelledby="countdown-title">
       <div class="wrap">
         <div class="section-head">
           <p class="kicker">Le grand jour approche</p>
@@ -727,6 +776,9 @@
         <p id="countdown-message" class="countdown-message" aria-live="polite"></p>
       </div>
     </section>
+  </div>
+
+  <main>
 
     <section id="histoire" class="story">
       <div class="wrap story-grid">
@@ -751,7 +803,8 @@
       </div>
     </section>
 
-    <section id="jour" class="schedule soft">
+    <section id="jour" class="schedule has-bg bg-cake">
+      <div class="bg-track" aria-hidden="true"><div class="bg-pin"><div class="bg-img"></div></div></div>
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker">Samedi 12 juin 2027</p>
@@ -796,7 +849,8 @@
       </div>
     </section>
 
-    <section id="rsvp" class="rsvp soft">
+    <section id="rsvp" class="rsvp has-bg bg-menu">
+      <div class="bg-track" aria-hidden="true"><div class="bg-pin"><div class="bg-img"></div></div></div>
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker" id="rsvp-kicker">Merci de confirmer votre présence dès que possible&nbsp;!</p>
