@@ -330,23 +330,30 @@
     .story-copy .date-mark { color: var(--ink); font-weight: 500; }
 
     /* ---------- Programme ---------- */
-    .program {
+    .schedule-times {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       max-width: 760px;
       margin: 0 auto;
       list-style: none;
       border-top: 1px solid var(--line);
-    }
-    .program li {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 24px;
-      align-items: baseline;
-      padding: 28px 0;
       border-bottom: 1px solid var(--line);
     }
-    .program .time { font-family: var(--serif); font-size: clamp(1.8rem, 3.6vw, 2.4rem); }
-    .program .what { font-size: 1.1rem; }
-    .cta-row { margin-top: 12px; text-align: center; }
+    .schedule-times li { padding: clamp(36px, 6vw, 64px) 10px; text-align: center; }
+    .schedule-times li + li { border-left: 1px solid var(--line); }
+    .schedule-times .clock {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 9vw, 5.5rem);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .schedule-times .label { display: block; margin-top: 14px; color: var(--muted); font-size: .95rem; font-weight: 400; }
+    .punctual { max-width: 560px; margin: clamp(44px, 7vw, 72px) auto 0; text-align: center; }
+    .punctual::before { display: block; width: 36px; height: 1px; margin: 0 auto 28px; background: var(--accent); content: ""; }
+    .punctual strong { display: block; font-family: var(--serif); font-size: clamp(1.8rem, 4.2vw, 2.5rem); font-weight: 400; line-height: 1.15; }
+    .punctual p { margin-top: 12px; color: var(--muted); }
+    .cta-row { margin-top: clamp(40px, 6vw, 56px); text-align: center; }
 
     /* ---------- Lieu ---------- */
     .location {
@@ -611,7 +618,6 @@
       .time-box:nth-child(3) { border-left: 0; }
       .time-box:nth-child(n + 3) { border-top: 1px solid var(--line); }
 
-      .program li { grid-template-columns: 1fr; gap: 2px; padding: 22px 0; }
       .trips li { grid-template-columns: 1fr; gap: 4px; padding: 24px 0; }
 
       .gallery { grid-template-columns: repeat(2, 1fr); gap: 6px; }
@@ -741,12 +747,14 @@
           <p class="kicker">Samedi 12 juin 2027</p>
           <h2>Le grand jour</h2>
         </div>
-        <ol class="program reveal">
-          <li><span class="time">17 h 30</span><span class="what">Cocktail de bienvenue</span></li>
-          <li><span class="time">18 h 30</span><span class="what">Souper et célébration</span></li>
-          <li><span class="time">20 h 00</span><span class="what">Animation et festivités</span></li>
-          <li><span class="time">02 h 00</span><span class="what">Fin de soirée</span></li>
-        </ol>
+        <ul class="schedule-times reveal">
+          <li><span class="clock">17&nbsp;h&nbsp;30</span><span class="label">Début de l’événement</span></li>
+          <li><span class="clock">2&nbsp;h&nbsp;00</span><span class="label">Fin de la soirée</span></li>
+        </ul>
+        <div class="punctual reveal">
+          <strong>Merci d’arriver à l’heure</strong>
+          <p>L’événement débute à 17&nbsp;h&nbsp;30 précises.</p>
+        </div>
         <div class="cta-row reveal">
           <button type="button" class="button button-outline" id="add-calendar">Ajouter à mon calendrier</button>
         </div>
@@ -793,7 +801,7 @@
         <!-- ===== Étape 1 : identification (prénom + nom, vérifiés dans la liste d'invités) ===== -->
         <form class="rsvp-form" id="form-gate" novalidate>
           <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
-          <p class="gate-intro">Pour accéder au questionnaire, indiquez votre prénom et votre nom de famille, tels qu’ils figurent sur votre invitation.</p>
+          <p class="gate-intro">Pour accéder au questionnaire, indiquez votre prénom et votre nom de famille.</p>
           <div class="field">
             <label for="g-prenom">Prénom <span class="req">*</span></label>
             <input type="text" id="g-prenom" autocomplete="given-name" required>
@@ -1153,7 +1161,7 @@
         "DTEND:20270613T060000Z",
         "SUMMARY:Mariage de Chakib & Sarah",
         "LOCATION:Salle de Réception Le Classique\\, 6010 Boulevard des Grandes-Prairies\\, Saint-Léonard\\, QC H1P 1A5",
-        "DESCRIPTION:Cocktail de bienvenue à 17 h 30.",
+        "DESCRIPTION:Début de l’événement à 17 h 30 précises. Merci d’arriver à l’heure.",
         "END:VEVENT",
         "END:VCALENDAR"
       ].join("\r\n");
