@@ -267,9 +267,30 @@
     .bg-cake .bg-img { background-image: url("images/cake.jpg"); background-position: 50% 60%; filter: brightness(.5) saturate(.9) blur(1.5px); transform: scale(1.04); }
     .bg-cake .bg-pin::after { background: linear-gradient(rgba(8, 10, 17, .6), rgba(8, 10, 17, .74)); }
 
-    .bg-menu .bg-img { background-image: url("images/menu.jpg"); background-position: 50% 50%; filter: brightness(.55) saturate(.85) contrast(1.05); }
-    .bg-menu .bg-pin::after { background: linear-gradient(rgba(14, 12, 10, .5), rgba(14, 12, 10, .68)); }
+.bg-menu .bg-img {
+  background-image: url("images/menu.jpg");
+  background-position: center;
+  filter: brightness(.82) saturate(.9) contrast(1.05);
+}
 
+.bg-menu .bg-pin::after {
+  background: linear-gradient(rgba(14, 12, 10, .18), rgba(14, 12, 10, .32));
+}
+
+.bg-photo9 .bg-img {
+  background-image: url("images/photo9.JPG");
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-photo9 .bg-pin::after {
+  background: rgba(0, 0, 0, .48);
+}
+
+/* Garde le texte important de la FAQ lisible sur la photo */
+.has-bg .faq-item .answer strong {
+  color: #fff;
+}
     /* ---------- Boutons ---------- */
     .button {
       display: inline-block;
@@ -699,6 +720,13 @@
     min-height: 44px;
     align-items: center;
   }
+  .bg-menu .bg-img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #29251f;
+}
+
+
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -727,7 +755,7 @@
 
   <nav class="site-nav" id="nav" aria-label="Navigation principale">
     <ul>
-      <li><a href="#histoire"><span class="nav-long">Notre histoire</span><span class="nav-short">Histoire</span></a></li>
+      <li><a href="#accueil"><span class="nav-long">Accueil</span><span class="nav-short">Home</span></a></li>
       <li><a href="#jour"><span class="nav-long">Le grand jour</span><span class="nav-short">Jour J</span></a></li>
       <li><a href="#lieu">Lieu</a></li>
       <li><a href="#rsvp">RSVP</a></li>
@@ -737,7 +765,7 @@
     </ul>
   </nav>
 
-  <div class="has-bg hero-zone">
+  <div id="accueil" class="has-bg hero-zone">
     <div class="bg-track" aria-hidden="true">
       <div class="bg-pin">
         <div class="slide slide-one"></div>
@@ -754,9 +782,6 @@
       <h1>Chakib <span class="ampersand">&amp;</span> Sarah</h1>
       <p class="hero-copy">Parce que ce grand jour n'aurait aucun sens sans vous, c'est avec une immense joie que nous vous convions à notre mariage.</p>
       <p class="hero-date">Samedi 12 juin 2027, Montréal</p>
-      <div>
-        <a class="button button-light" href="#histoire">Découvrir notre histoire</a>
-      </div>
     </div>
     <span class="scroll-hint" aria-hidden="true"></span>
   </header>
@@ -1020,7 +1045,10 @@
       </div>
     </section>
 
-    <section id="faq" class="faq">
+    <section id="faq" class="faq has-bg bg-photo9">
+       <div class="bg-track" aria-hidden="true">
+    <div class="bg-pin"><div class="bg-img"></div></div>
+  </div>
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker">Tout ce que vous voulez savoir</p>
@@ -1051,7 +1079,10 @@
       </div>
     </section>
 
-    <section id="voyages" class="travel-section soft">
+    <section id="voyages" class="travel-section has-bg bg-photo9">
+      <div class="bg-track" aria-hidden="true">
+    <div class="bg-pin"><div class="bg-img"></div></div>
+  </div>
       <div class="wrap">
         <div class="section-head reveal">
           <p class="kicker">Des souvenirs à travers le monde</p>
