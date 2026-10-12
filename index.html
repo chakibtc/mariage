@@ -273,20 +273,20 @@
     .bg-cappa > section + section { border-top: 1px solid rgba(255, 255, 255, .22); }
     .bg-cappa > section.travel-section { background: rgba(8, 10, 16, .3); }
 
-    .bg-menu .bg-img { background-image: url("images/menu.jpg"); background-position: 50% 50%; filter: brightness(.74) saturate(.92) contrast(1.03); }
-    .bg-menu .bg-pin::after { background: linear-gradient(rgba(14, 12, 10, .36), rgba(14, 12, 10, .52)); }
-
-    /* Fenêtre photo en haut du RSVP : la serviette et ses initiales C&S, sans aucun texte par-dessus */
-    .rsvp { padding-top: 0; scroll-margin-top: -110px; }
+    /* Bandeau photo en haut du RSVP : la serviette et ses initiales C&S, nettes et bien visibles.
+       Le formulaire reste sur fond clair en dessous (plus lisible, rien ne cache les initiales). */
+    .rsvp { padding-top: 0; padding-left: 0; padding-right: 0; scroll-margin-top: -40px; }
+    .rsvp > .wrap { padding: clamp(28px, 5vw, 56px) 6% 0; }
     .rsvp-photo {
-      height: clamp(300px, 36vw, 440px);
-      margin: 0 calc(50% - 50vw);
-      background: url("images/menu.jpg") 56% 64% / cover no-repeat;
-      filter: brightness(.96) saturate(.95);
-      -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 70%, transparent);
-      mask-image: linear-gradient(transparent, #000 16%, #000 70%, transparent);
+      height: clamp(260px, 36vh, 360px);
+      height: clamp(260px, 36svh, 360px);
+      background: #14110e url("images/menu.jpg") 50% 68% / cover no-repeat;
+      -webkit-mask-image: linear-gradient(#000 74%, transparent);
+      mask-image: linear-gradient(#000 74%, transparent);
     }
-    .rsvp > .wrap { padding-top: clamp(20px, 4vw, 44px); }
+    @media (max-width: 700px) {
+      .rsvp-photo { background-size: auto 140%; background-position: 78% 100%; }
+    }
 
     /* ---------- Boutons ---------- */
     .button {
@@ -651,7 +651,6 @@
 
     .rsvp .field > label, .rsvp .field > legend { font-family: var(--sans); font-size: 1.02rem; font-weight: 500; line-height: 1.5; letter-spacing: .005em; }
     .rsvp .field .hint { margin-top: 3px; font-weight: 400; }
-    .rsvp .field .req { color: #d6bb86; }
     .rsvp .choice { color: var(--ink); }
     .rsvp .field input[type="text"]:hover, .rsvp .field input[type="number"]:hover, .rsvp .choice:hover { border-color: var(--accent); }
     .rsvp .field input[type="text"]:focus, .rsvp .field input[type="number"]:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
@@ -662,8 +661,6 @@
         linear-gradient(#fff, #fff) center / 100% 1px no-repeat,
         linear-gradient(#fff, #fff) center / 1px 100% no-repeat;
     }
-    .rsvp .rsvp-status .thanks-title { color: #fff; }
-    .rsvp .rsvp-status.error { color: #ffc4c4; }
 
     /* ---------- Révélation au défilement ---------- */
     .reveal { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
@@ -870,8 +867,7 @@
       </div>
     </section>
 
-    <section id="rsvp" class="rsvp has-bg bg-menu">
-      <div class="bg-track" aria-hidden="true"><div class="bg-pin"><div class="bg-img"></div></div></div>
+    <section id="rsvp" class="rsvp soft">
       <div class="rsvp-photo" role="img" aria-label="Serviette brodée aux initiales C&amp;S"></div>
       <div class="wrap">
         <div class="section-head reveal">
