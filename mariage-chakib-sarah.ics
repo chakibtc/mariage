@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mariage Chakib et Sarah//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:mariage-chakib-sarah-20270612@chakibetsarah.com
+DTSTAMP:20261013T120000Z
+DTSTART:20270612T213000Z
+DTEND:20270613T060000Z
+SUMMARY:Mariage de Chakib & Sarah
+LOCATION:Salle de Réception Le Classique (Salle Chagall)\, 6010 Boulevard 
+ des Grandes-Prairies\, Saint-Léonard\, QC H1P 1A5
+DESCRIPTION:Début de l’événement à 17 h 30 précises. Merci d’arriv
+ er à l’heure.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

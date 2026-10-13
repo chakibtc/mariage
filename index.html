@@ -400,6 +400,23 @@
     .punctual strong { display: block; font-family: var(--serif); font-size: clamp(1.8rem, 4.2vw, 2.5rem); font-weight: 400; line-height: 1.15; }
     .punctual p { margin-top: 12px; color: var(--muted); }
     .cta-row { margin-top: clamp(40px, 6vw, 56px); text-align: center; }
+    .cal-menu { display: inline-block; }
+    .cal-menu summary { list-style: none; }
+    .cal-menu summary::-webkit-details-marker { display: none; }
+    .cal-menu summary::after {
+      display: inline-block; width: 7px; height: 7px; margin: 0 0 3px 12px;
+      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg); transition: transform .25s ease; content: "";
+    }
+    .cal-menu[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+    .cal-list {
+      width: min(360px, 100%); margin: 18px auto 0; padding: 8px; list-style: none; text-align: left;
+      border: 1px solid rgba(255, 255, 255, .22); border-radius: 18px; background: rgba(12, 13, 18, .62);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    }
+    .cal-list a { display: block; padding: 14px 16px; border-radius: 12px; color: #fff; font-size: .95rem; text-decoration: none; transition: background .2s ease; }
+    .cal-list a:hover, .cal-list a:focus-visible { background: rgba(255, 255, 255, .12); }
+    .cal-list small { display: block; margin-top: 2px; color: rgba(255, 255, 255, .68); font-size: .8rem; line-height: 1.4; }
 
     /* ---------- Lieu ---------- */
     .location {
@@ -772,13 +789,8 @@
   وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا<br>
   وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
 </p>
-<br>
-<br>
       <h1>Chakib <span class="ampersand">&amp;</span> Sarah</h1>
-      <br>
       <p class="hero-copy">Parce que ce grand jour n'aurait aucun sens sans vous, c'est avec une immense joie que nous vous convions à notre mariage.</p>
-      <br>
-      <br>
       <p class="hero-date">Samedi 12 juin 2027, Montréal</p>
     </div>
     <span class="scroll-hint" aria-hidden="true"></span>
@@ -816,7 +828,7 @@
             </p>
             <p>
             Entre découvertes, fous rires et voyages,
-            notre complicité s'est naturellement installée, laissant peu à peu place à une belle évidence.
+            notre complicité s'est naturelleent installée, laissant peu à peu place à une belle évidence.
           </p>
           <p>
             Aujourd'hui, nous avons le bonheur de vous inviter à célébrer avec nous l'amour qui nous unit et le début de cette nouvelle aventure à deux.
@@ -842,7 +854,16 @@
           <p>L’événement débute à 17&nbsp;h&nbsp;30 précises.</p>
         </div>
         <div class="cta-row reveal">
-          <button type="button" class="button button-outline" id="add-calendar">Ajouter à mon calendrier</button>
+          <details class="cal-menu">
+            <summary class="button button-outline">Ajouter à mon calendrier</summary>
+            <ul class="cal-list">
+              <li><a href="mariage-chakib-sarah.ics">Apple Calendrier ou autre agenda<small>Fichier .ics : iPhone, Mac, Samsung, Outlook…</small></a></li>
+              <li><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Mariage%20de%20Chakib%20%26%20Sarah&amp;dates=20270612T213000Z%2F20270613T060000Z&amp;details=D%C3%A9but%20de%20l%E2%80%99%C3%A9v%C3%A9nement%20%C3%A0%2017%20h%2030%20pr%C3%A9cises.%20Merci%20d%E2%80%99arriver%20%C3%A0%20l%E2%80%99heure.&amp;location=Salle%20de%20R%C3%A9ception%20Le%20Classique%20%28Salle%20Chagall%29%2C%206010%20Boulevard%20des%20Grandes-Prairies%2C%20Saint-L%C3%A9onard%2C%20QC%20H1P%201A5" target="_blank" rel="noopener noreferrer">Google Agenda</a></li>
+              <li><a href="https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&amp;rru=addevent&amp;startdt=2027-06-12T21%3A30%3A00Z&amp;enddt=2027-06-13T06%3A00%3A00Z&amp;subject=Mariage%20de%20Chakib%20%26%20Sarah&amp;body=D%C3%A9but%20de%20l%E2%80%99%C3%A9v%C3%A9nement%20%C3%A0%2017%20h%2030%20pr%C3%A9cises.%20Merci%20d%E2%80%99arriver%20%C3%A0%20l%E2%80%99heure.&amp;location=Salle%20de%20R%C3%A9ception%20Le%20Classique%20%28Salle%20Chagall%29%2C%206010%20Boulevard%20des%20Grandes-Prairies%2C%20Saint-L%C3%A9onard%2C%20QC%20H1P%201A5" target="_blank" rel="noopener noreferrer">Outlook.com</a></li>
+              <li><a href="https://outlook.office.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&amp;rru=addevent&amp;startdt=2027-06-12T21%3A30%3A00Z&amp;enddt=2027-06-13T06%3A00%3A00Z&amp;subject=Mariage%20de%20Chakib%20%26%20Sarah&amp;body=D%C3%A9but%20de%20l%E2%80%99%C3%A9v%C3%A9nement%20%C3%A0%2017%20h%2030%20pr%C3%A9cises.%20Merci%20d%E2%80%99arriver%20%C3%A0%20l%E2%80%99heure.&amp;location=Salle%20de%20R%C3%A9ception%20Le%20Classique%20%28Salle%20Chagall%29%2C%206010%20Boulevard%20des%20Grandes-Prairies%2C%20Saint-L%C3%A9onard%2C%20QC%20H1P%201A5" target="_blank" rel="noopener noreferrer">Microsoft 365<small>Compte de travail ou d’école</small></a></li>
+              <li><a href="https://calendar.yahoo.com/?v=60&amp;title=Mariage%20de%20Chakib%20%26%20Sarah&amp;st=20270612T213000Z&amp;et=20270613T060000Z&amp;desc=D%C3%A9but%20de%20l%E2%80%99%C3%A9v%C3%A9nement%20%C3%A0%2017%20h%2030%20pr%C3%A9cises.%20Merci%20d%E2%80%99arriver%20%C3%A0%20l%E2%80%99heure.&amp;in_loc=Salle%20de%20R%C3%A9ception%20Le%20Classique%20%28Salle%20Chagall%29%2C%206010%20Boulevard%20des%20Grandes-Prairies%2C%20Saint-L%C3%A9onard%2C%20QC%20H1P%201A5" target="_blank" rel="noopener noreferrer">Yahoo Agenda</a></li>
+            </ul>
+          </details>
         </div>
       </div>
     </section>
@@ -1236,32 +1257,24 @@
       if (e.key === "ArrowRight") openAt(current + 1);
     });
 
-    /* Ajouter au calendrier (fichier .ics) */
-    document.getElementById("add-calendar").addEventListener("click", () => {
-      const ics = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Mariage Chakib et Sarah//FR",
-        "BEGIN:VEVENT",
-        "UID:mariage-chakib-sarah-20270612@mariage",
-        "DTSTAMP:20260101T000000Z",
-        "DTSTART:20270612T213000Z",
-        "DTEND:20270613T060000Z",
-        "SUMMARY:Mariage de Chakib & Sarah",
-        "LOCATION:Salle de Réception Le Classique (Salle Chagall)\\, 6010 Boulevard des Grandes-Prairies\\, Saint-Léonard\\, QC H1P 1A5",
-        "DESCRIPTION:Début de l’événement à 17 h 30 précises. Merci d’arriver à l’heure.",
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\r\n");
-      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "mariage-chakib-sarah.ics";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(a.href);
-    });
+    /* Menu « Ajouter à mon calendrier » : se ferme en cliquant ailleurs, reste visible en entier */
+    (function () {
+      const menu = document.querySelector(".cal-menu");
+      if (!menu) return;
+      document.addEventListener("click", (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") menu.open = false; });
+      menu.addEventListener("toggle", () => {
+        if (!menu.open) return;
+        setTimeout(() => {
+          const nav = document.getElementById("nav");
+          const navH = nav ? nav.offsetHeight : 0;
+          const r = menu.getBoundingClientRect();
+          let dy = r.bottom > window.innerHeight - 16 ? r.bottom - (window.innerHeight - 16) : 0;   /* voir le bas de la liste */
+          if (r.top - dy < navH + 12) dy = Math.max(0, r.top - (navH + 12));                        /* sans cacher le bouton */
+          if (dy > 0) window.scrollBy({ top: dy, behavior: "smooth" });
+        }, 60);
+      });
+    })();
 
     /* ===== RSVP en ligne ===== */
     /* Colle ici l'URL de ton application web Google Apps Script (voir les instructions) : */
